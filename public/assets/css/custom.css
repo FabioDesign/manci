@@ -1,0 +1,77 @@
+@media (min-width: 992px){
+  .page-title{font-size: 1.35rem !important;}
+}
+@media (max-width: 767px){
+  .page-title{font-size: 10px !important;}
+}
+.not-active {
+  pointer-events: none;
+  cursor: none !important;
+  color: #FFF !important;
+  border-color: #909090 !important;
+  background: #909090 !important
+}
+.fieldError {
+  border-radius: 0.42rem;
+  border: 1px solid #E35B5A !important;
+}
+.msgError {
+  width: 100%;
+  color:#E35B5A;
+  margin: 20px 0;
+  font-weight: bold;
+  text-align: center;
+  display: block !important;
+}
+.viewPass {
+  top: 15px;
+  right: 15px;
+  color:#009EF7;
+  cursor: pointer;
+  position: absolute;
+  font-size: 15px !important;
+}
+.backPass {
+  top: 45px;
+  right: 20px;
+  color: #009EF7;
+  cursor: pointer;
+  position: absolute;
+  font-size: 15px !important;
+}
+.fa-size {
+  font-size: 18px !important;
+}
+.text-justify {
+  text-align: justify !important;
+}
+.fa-5x {
+  font-size: 5em !important;
+}
+.boxcheck{
+  font-size: 13px;
+  margin: 10px 0;
+}
+.gifloader {
+  left:0px;
+  top:0px;
+  width:100%;
+  height:100%;
+  z-index:10000;
+  position:fixed;
+  background:url('../img/loading.gif') 50% 50% no-repeat rgb(249,249,249);
+}
+.tooltip-inner {
+  color: #FFF ;
+  background-color: #000000!important;
+}
+.w-85 {
+  width: 85% !important;
+}
+.space {
+  padding: 10px 0 10px 5px;
+}
+.formcheck {
+  top: 10px;
+  left: -15px;
+}
