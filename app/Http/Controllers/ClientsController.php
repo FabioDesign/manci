@@ -54,7 +54,7 @@ class ClientsController extends Controller
 			$validator = Validator::make($request->all(), [
 				'libelle' => 'required',
 			], [
-				'libelle.required' => "Libellé obligatoire.",
+				'libelle.required' => "Nom obligatoire.",
 			]);
 			//Error field
 			if($validator->fails()){
@@ -96,7 +96,7 @@ class ClientsController extends Controller
 					Log::warning("Client : ".$e->getMessage());
 				}
 			}else{
-				$msg = "Libellé déjà utilisé";
+				$msg = "Nom déjà utilisé";
 				Log::warning("Client : ".$libelle." : ".$msg);
 			}
 			return $Ok.'|'.$msg;

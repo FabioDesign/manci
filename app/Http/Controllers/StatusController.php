@@ -154,7 +154,7 @@ class StatusController extends Controller{
 				break;
 				case 14:
 					$Ok = 1;
-					$title = 'Libellé (Fourniture)';
+					$title = 'Nom (Fourniture)';
 					//Libelle
 					$txt = $title.' '.$action;
 					//Requete Update
@@ -261,7 +261,7 @@ class StatusController extends Controller{
 				break;
 				case 21:
 					$Ok = 1;
-					$title = 'Diamètre (fourniture)';
+					$title = 'Qualification (fourniture)';
 					//Libelle
 					$txt = $title.' '.$action;
 					//Requete Update

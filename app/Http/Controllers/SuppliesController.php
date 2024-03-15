@@ -86,7 +86,7 @@ class SuppliesController extends Controller
 				'diameter_id' => 'bail|required|integer|gt:0',
 				'amount' => 'bail|required|regex:/^[0-9\s]+$/',
 			], [
-				'suppllib_id.*' => "Libellé (fourniture) non valide.",
+				'suppllib_id.*' => "Nom (fourniture) non valide.",
 				'material_id.*' => "Type (fourniture) non valide.",
 				'diameter_id.*' => "Type (fourniture) non valide.",
 				'amount.required' => "Montant obligatoire.",
@@ -95,7 +95,7 @@ class SuppliesController extends Controller
 			//Error field
 			if($validator->fails()){
 				$errors = $validator->errors();
-				Log::warning("Libellé (Fourniture) : ".serialize($request->post()));
+				Log::warning("Nom (Fourniture) : ".serialize($request->post()));
 				if($errors->has('suppllib_id')) return '0|'.$errors->first('suppllib_id');
 				if($errors->has('material_id')) return '0|'.$errors->first('material_id');
 				if($errors->has('diameter_id')) return '0|'.$errors->first('diameter_id');

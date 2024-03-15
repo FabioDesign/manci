@@ -41,7 +41,7 @@
             <td>{{ $prenom[0].' '.$data->lastname }}</td>
             <td class="text-center"><span data-kt-element="status" class="badge {{ $badge }}">{{ $status }}</span></td>
             <td class="text-center">
-              @if((in_array(6, Session::get('rights')[18]))&&($data->status > 0))
+              @if(in_array(6, Session::get('rights')[18]))
               <a href="/assets/media/billings/{{ 'dev-'.$data->filename }}" target="_blank" class="me-1" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Voir le devis"><i class="fa-solid fa-file-pdf fa-size text-primary"></i></a>
               @endif
               @if(((in_array(3, Session::get('rights')[18]))&&($data->status == 0))||((in_array(6, Session::get('rights')[18]))&&($data->status == 1)))

@@ -68,7 +68,7 @@ class ProfilsController extends Controller
 			    $titre = 'Ajout';
 			}
 			$output = '<div class="row form-group fv-row mb-7">
-			<label class="col-sm-12 col-xl-2 col-form-label text-lg-right fw-bolder text-dark fs-6 required">Libelle</label>
+			<label class="col-sm-12 col-xl-2 col-form-label text-lg-right fw-bolder text-dark fs-6 required">Nom</label>
 	        <div class="col-sm-12 col-xl-6">
 			<input type="text" name="libelle" class="form-control form-control-lg form-control-solid requiredField profil" placeholder="Libelle" value="'.$libelle.'" />
 	        </div>
@@ -142,7 +142,7 @@ class ProfilsController extends Controller
 			$validator = Validator::make($request->all(), [
 				'libelle' => 'required',
 			], [
-				'libelle.required' => "Libellé obligatoire.",
+				'libelle.required' => "Nom obligatoire.",
 			]);
 			//Error field
 			if($validator->fails()){

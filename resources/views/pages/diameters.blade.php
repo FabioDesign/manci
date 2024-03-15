@@ -10,7 +10,7 @@
         <thead>
           <tr class="fw-bolder fs-6 text-gray-800 px-7">
             <th>#</th>
-            <th>Libellé</th>
+            <th>Nom</th>
             <th class="text-center">Date</th>
             <th class="text-center">Statut</th>
             <th class="text-center">Action</th>
@@ -41,12 +41,12 @@
             <td class="text-center"><span data-kt-element="status" class="badge {{ $badge }}">{{ $status }}</span></td>
             <td class="text-center">
               @if((in_array(3, Session::get('rights')[21]))&&($data->status == 0))
-              <a href="#" class="modalform" data-h="{{ $data->id }}|diameterform|mw-400px" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Modifier le Diamètre" submitbtn="Modifier"><i class="fas fa-edit fa-size text-warning"></i></a>
+              <a href="#" class="modalform" data-h="{{ $data->id }}|diameterform|mw-400px" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Modifier le Qualification" submitbtn="Modifier"><i class="fas fa-edit fa-size text-warning"></i></a>
               @else
               <a href="#"><i class="fas fa-edit fa-size text-muted"></i></a>
               @endif
               @if(in_array(4, Session::get('rights')[21]))
-              <a href="#" class="status" data-h="{{ $data->id.'|'.$data->status.'|21' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="{{ $titre }} du Diamètre"><i class="fas fa-{{ $icone }} fa-size {{ $color }}"></i></a>
+              <a href="#" class="status" data-h="{{ $data->id.'|'.$data->status.'|21' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="{{ $titre }} du Qualification"><i class="fas fa-{{ $icone }} fa-size {{ $color }}"></i></a>
               @else
               <a href="#"><i class="fas fa-{{ $icone }} fa-size text-muted"></i></a>
               @endif

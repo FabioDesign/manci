@@ -235,9 +235,9 @@ class DevisController extends Controller
 		if($devtyp_id == 2){
 			$return .= '<datalist id="qte"></datalist><div class="row mb-5">
 			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Type</label></div>
-			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Libellé</label></div>
+			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Nom</label></div>
 			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Matière</label></div>
-			<div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6 required">Diamètre</label></div>
+			<div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6 required">Qualif.</label></div>
 			<div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6 required">PU</label></div>
 			<div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6 required">Qté</label></div>
 			<div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6">Unité</label></div>

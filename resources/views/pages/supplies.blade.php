@@ -17,10 +17,10 @@
             <th rowspan="2" class="align-middle text-center">Date</th>
             <th rowspan="2" class="align-middle text-center">Action</th>
           </tr>
-          <tr class="fw-bolder fs-6 text-gray-800 px-7">
-            <th>Libellé</th>
+          <tr class="fw-bolder text-gray-800 px-7">
+            <th>Nom</th>
             <th class="text-center">Matière</th>
-            <th class="text-center">Diamètre</th>
+            <th class="text-center">Qualification</th>
           </tr>
         </thead>
         <tbody>

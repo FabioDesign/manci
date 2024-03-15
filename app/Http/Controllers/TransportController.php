@@ -56,7 +56,7 @@ class TransportController extends Controller
 				'libelle' => 'required',
 				'amount' => 'bail|required|regex:/^[0-9\s]+$/',
 			], [
-				'libelle.required' => "Libellé obligatoire.",
+				'libelle.required' => "Nom obligatoire.",
 				'amount.required' => "Montant obligatoire.",
 				'amount.regex' => "Montant non valide.",
 			]);
@@ -102,7 +102,7 @@ class TransportController extends Controller
 					Log::warning("Transport : ".$e->getMessage());
 				}
 			}else{
-				$msg = "Libellé déjà utilisé";
+				$msg = "Nom déjà utilisé";
 				Log::warning("Transport : ".$libelle." : ".$msg);
 			}
 			return $Ok.'|'.$msg;

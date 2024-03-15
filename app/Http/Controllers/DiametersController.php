@@ -15,7 +15,7 @@ class DiametersController extends Controller
 	public function index(){
     	if(Session::has('idUsr')){
 			//Title
-			$title = 'Diamètre (Fourniture)';
+			$title = 'Qualification (Fourniture)';
 			//Breadcrumb
 			$breadcrumb = 'Paramètres';
 			//Menu
@@ -23,7 +23,7 @@ class DiametersController extends Controller
 			//Submenu
 			$currentSubMenu = 'diameters';
 			//Modal
-			$addmodal = in_array(2, Session::get('rights')[21]) ? '<a href="#" class="btn btn-sm btn-primary modalform" data-h="0|diameterform|mw-400px" title="Ajouter un Diamètre" submitbtn="Valider">Ajouter un Diamètre</a>':'';
+			$addmodal = in_array(2, Session::get('rights')[21]) ? '<a href="#" class="btn btn-sm btn-primary modalform" data-h="0|diameterform|mw-400px" title="Ajouter un Qualification" submitbtn="Valider">Ajouter un Qualification</a>':'';
 			//Requete Read
 			$query = Diameter::select('id', 'libelle', 'status', 'created_at')
 			->orderByDesc('created_at')
@@ -53,12 +53,12 @@ class DiametersController extends Controller
 			$validator = Validator::make($request->all(), [
 				'libelle' => 'required',
 			], [
-				'libelle.required' => "Diamètre obligatoire.",
+				'libelle.required' => "Qualification obligatoire.",
 			]);
 			//Error field
 			if($validator->fails()){
 				$errors = $validator->errors();
-				Log::warning("Diamètre (Fourniture) : ".serialize($request->post()));
+				Log::warning("Qualification (Fourniture) : ".serialize($request->post()));
 				if($errors->has('libelle')) return '0|'.$errors->first('libelle');
 			}
 			$id = $request->id;
@@ -78,25 +78,25 @@ class DiametersController extends Controller
 						$set['status'] = '0';
 						$set['user_id'] = Session::get('idUsr');
 						Diameter::create($set);
-						$msg = 'Diamètre (Fourniture) enregistrée avec succès.';
+						$msg = 'Qualification (Fourniture) enregistrée avec succès.';
 						$type = 'Ajouter';
 						$color = 'success';
 					}else{
 						Diameter::findOrFail($id)->update($set);
-						$msg = 'Diamètre (Fourniture) modifiée avec succès.';
+						$msg = 'Qualification (Fourniture) modifiée avec succès.';
 						$type = 'Modifier';
 						$color = 'warning';
 					}
-					Myhelper::logs(Session::get('username'), Session::get('profil'), 'Diamètre (Fourniture): '.$libelle, $type, $color, Session::get('avatar'));
-					Log::info($type.' Diamètre (Fourniture) : '.serialize($request->post()));
+					Myhelper::logs(Session::get('username'), Session::get('profil'), 'Qualification (Fourniture): '.$libelle, $type, $color, Session::get('avatar'));
+					Log::info($type.' Qualification (Fourniture) : '.serialize($request->post()));
 					$Ok = 1;
 				}catch(\Exception $e){
-					Log::warning("Diamètre (Fourniture) : ".serialize($request->post()));
-					Log::warning("Diamètre (Fourniture) : ".$e->getMessage());
+					Log::warning("Qualification (Fourniture) : ".serialize($request->post()));
+					Log::warning("Qualification (Fourniture) : ".$e->getMessage());
 				}
 			}else{
-				$msg = "Diamètre déjà utilisée";
-				Log::warning("Diamètre (Fourniture) : ".$libelle." : ".$msg);
+				$msg = "Qualification déjà utilisée";
+				Log::warning("Qualification (Fourniture) : ".$libelle." : ".$msg);
 			}
 			return $Ok.'|'.$msg;
 	    }else return 'x';

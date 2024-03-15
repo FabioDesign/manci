@@ -97,7 +97,7 @@ class ShipsController extends Controller
 				'billaddr_id' => 'bail|required|integer|gt:0',
 				'inspector_id' => 'bail|required|integer|gt:0',
 			], [
-				'libelle.required' => "Libellé obligatoire.",
+				'libelle.required' => "Nom obligatoire.",
 				'billaddr_id.required' => "Adresse Facturaction obligatoire.",
 				'billaddr_id.gt' => "Adresse Facturaction non valide.",
 				'inspector_id.required' => "Inspecteur obligatoire.",
@@ -147,7 +147,7 @@ class ShipsController extends Controller
 					Log::warning("Navire : ".$e->getMessage());
 				}
 			}else{
-				$msg = "Libellé déjà utilisé";
+				$msg = "Nom déjà utilisé";
 				Log::warning("Navire : ".$libelle." : ".$msg);
 			}
 			return $Ok.'|'.$msg;

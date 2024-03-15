@@ -36,7 +36,7 @@
           <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
             <th class="min-w-150px w-100px">Utilisateur</th>
             <th class="min-w-100px w-50px text-center">Action</th>
-            <th class="min-w-300px w-475px">Libellé</th>
+            <th class="min-w-300px w-475px">Nom</th>
             <th class="min-w-100px w-150px text-center">Date</th>
           </tr>
         </thead>

@@ -10,7 +10,7 @@
         <thead>
           <tr class="fw-bolder fs-6 text-gray-800 px-7">
             <th>#</th>
-            <th>Libellé</th>
+            <th>Nom</th>
             <th class="text-center">Valeur</th>
             <th class="text-center">Date</th>
             <th class="text-center">Statut</th>

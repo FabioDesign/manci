@@ -4,7 +4,7 @@
 <div class="row fv-row mb-7">
   <!--begin::Col-->
   <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6 required">Libelle</label>
+    <label class="form-label fw-bolder text-dark fs-6 required">Nom</label>
     <input type="text" name="libelle" value="{{ $libelle }}" class="form-control form-control-solid requiredField" />
   </div>
   <!--end::Col-->

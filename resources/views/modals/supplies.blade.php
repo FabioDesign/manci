@@ -15,7 +15,7 @@
   <!--end::Col-->
   <!--begin::Col-->
   <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6 required">Libellé</label>
+    <label class="form-label fw-bolder text-dark fs-6 required">Nom</label>
     <select id="suppllib_id" name="suppllib_id" class="form-control form-select form-control-solid requiredField" aria-label="Select example">
       <option value="" selected disabled>Sélectionner</option>
     </select>
@@ -37,7 +37,7 @@
   <!--end::Col-->
   <!--begin::Col-->
   <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6 required">Diamètre</label>
+    <label class="form-label fw-bolder text-dark fs-6 required">Qualification</label>
     <select name="diameter_id" class="form-control form-select form-control-solid requiredField" aria-label="Select example">
       <option value="" selected disabled>Sélectionner</option>
       @foreach($diameter as $data)

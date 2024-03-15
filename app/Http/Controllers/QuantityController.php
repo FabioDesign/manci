@@ -72,7 +72,7 @@ class QuantityController extends Controller
 				'libelle' => 'required',
 				'valeur' => 'required',
 			], [
-				'libelle.required' => "Libellé obligatoire.",
+				'libelle.required' => "Nom obligatoire.",
 				'valeur.required' => "Valeur obligatoire.",
 			]);
 			//Error field
@@ -117,7 +117,7 @@ class QuantityController extends Controller
 					Log::warning("Quantité : ".$e->getMessage());
 				}
 			}else{
-				$msg = "Libellé déjà utilisé";
+				$msg = "Nom déjà utilisé";
 				Log::warning("Quantité : ".$libelle." : ".$msg);
 			}
 			return $Ok.'|'.$msg;

@@ -80,7 +80,7 @@ class BilladdrController extends Controller
 				'client_id' => 'bail|required|integer|gt:0',
 			], [
 				'content.required' => "Adresse Facturaction obligatoire.",
-				'libelle.required' => "Libellé obligatoire.",
+				'libelle.required' => "Nom obligatoire.",
 				'client_id.required' => "Client obligatoire.",
 				'client_id.gt' => "Client non valide.",
 			]);
@@ -128,7 +128,7 @@ class BilladdrController extends Controller
 					Log::warning("Adresse Facturaction : ".$e->getMessage());
 				}
 			}else{
-				$msg = "Libellé déjà utilisé";
+				$msg = "Nom déjà utilisé";
 				Log::warning("Adresse Facturaction : ".$libelle." : ".$msg);
 			}
 			return $Ok.'|'.$msg;

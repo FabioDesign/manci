@@ -17,7 +17,7 @@ class SuppllibController extends Controller
 	public function index(){
     	if(Session::has('idUsr')){
 			//Title
-			$title = 'Libellé (Fourniture)';
+			$title = 'Nom (Fourniture)';
 			//Breadcrumb
 			$breadcrumb = 'Paramètres';
 			//Menu
@@ -25,7 +25,7 @@ class SuppllibController extends Controller
 			//Submenu
 			$currentSubMenu = 'suppllib';
 			//Modal
-			$addmodal = in_array(2, Session::get('rights')[14]) ? '<a href="#" class="btn btn-sm btn-primary modalform" data-h="0|suppllibform|" title="Ajouter un Libellé" submitbtn="Valider">Ajouter un Libellé</a>':'';
+			$addmodal = in_array(2, Session::get('rights')[14]) ? '<a href="#" class="btn btn-sm btn-primary modalform" data-h="0|suppllibform|" title="Ajouter un Nom" submitbtn="Valider">Ajouter un Nom</a>':'';
 			//Requete Read
 			$query = Suppllib::select('suppl_lib.id', 'suppl_lib.libelle', 'suppl_typ.libelle AS type', 'suppl_lib.status', 'suppl_lib.created_at')
 			->join('suppl_typ', 'suppl_typ.id', '=', 'suppl_lib.suppltyp_id')
@@ -77,13 +77,13 @@ class SuppllibController extends Controller
 				'libelle' => 'required',
 				'suppltyp_id' => 'bail|required|integer|gt:0',
 			], [
-				'libelle.required' => "Libellé obligatoire.",
+				'libelle.required' => "Nom obligatoire.",
 				'suppltyp_id.*' => "Type (fourniture) non valide.",
 			]);
 			//Error field
 			if($validator->fails()){
 				$errors = $validator->errors();
-				Log::warning("Libellé (Fourniture) : ".serialize($request->post()));
+				Log::warning("Nom (Fourniture) : ".serialize($request->post()));
 				if($errors->has('suppltyp_id')) return '0|'.$errors->first('suppltyp_id');
 				if($errors->has('libelle')) return '0|'.$errors->first('libelle');
 			}
@@ -105,25 +105,25 @@ class SuppllibController extends Controller
 						$set['status'] = '0';
 						$set['user_id'] = Session::get('idUsr');
 						Suppllib::create($set);
-						$msg = 'Libellé (Fourniture) enregistré avec succès.';
+						$msg = 'Nom (Fourniture) enregistré avec succès.';
 						$type = 'Ajouter';
 						$color = 'success';
 					}else{
 						Suppllib::findOrFail($id)->update($set);
-						$msg = 'Libellé (Fourniture) modifié avec succès.';
+						$msg = 'Nom (Fourniture) modifié avec succès.';
 						$type = 'Modifier';
 						$color = 'warning';
 					}
-					Myhelper::logs(Session::get('username'), Session::get('profil'), 'Libellé (Fourniture): '.$libelle, $type, $color, Session::get('avatar'));
-					Log::info($type.' Libellé (Fourniture) : '.serialize($request->post()));
+					Myhelper::logs(Session::get('username'), Session::get('profil'), 'Nom (Fourniture): '.$libelle, $type, $color, Session::get('avatar'));
+					Log::info($type.' Nom (Fourniture) : '.serialize($request->post()));
 					$Ok = 1;
 				}catch(\Exception $e){
-					Log::warning("Libellé (Fourniture) : ".serialize($request->post()));
-					Log::warning("Libellé (Fourniture) : ".$e->getMessage());
+					Log::warning("Nom (Fourniture) : ".serialize($request->post()));
+					Log::warning("Nom (Fourniture) : ".$e->getMessage());
 				}
 			}else{
-				$msg = "Libellé déjà utilisé";
-				Log::warning("Libellé (Fourniture) : ".$libelle." : ".$msg);
+				$msg = "Nom déjà utilisé";
+				Log::warning("Nom (Fourniture) : ".$libelle." : ".$msg);
 			}
 			return $Ok.'|'.$msg;
 	    }else return 'x';

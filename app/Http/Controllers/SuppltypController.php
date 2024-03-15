@@ -54,7 +54,7 @@ class SuppltypController extends Controller
 			$validator = Validator::make($request->all(), [
 				'libelle' => 'required',
 			], [
-				'libelle.required' => "Libellé obligatoire.",
+				'libelle.required' => "Nom obligatoire.",
 			]);
 			//Error field
 			if($validator->fails()){
@@ -96,7 +96,7 @@ class SuppltypController extends Controller
 					Log::warning("Type (Fourniture) : ".$e->getMessage());
 				}
 			}else{
-				$msg = "Libellé déjà utilisé";
+				$msg = "Nom déjà utilisé";
 				Log::warning("Type (Fourniture) : ".$libelle." : ".$msg);
 			}
 			return $Ok.'|'.$msg;

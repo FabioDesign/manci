@@ -11,7 +11,7 @@
           <tr class="fw-bolder fs-6 text-gray-800 px-7">
             <th>#</th>
             <th>Type</th>
-            <th>Libellé</th>
+            <th>Nom</th>
             <th class="text-center">Date</th>
             <th class="text-center">Statut</th>
             <th class="text-center">Action</th>
@@ -43,12 +43,12 @@
             <td class="text-center"><span data-kt-element="status" class="badge {{ $badge }}">{{ $status }}</span></td>
             <td class="text-center">
               @if((in_array(3, Session::get('rights')[14]))&&($data->status == 0))
-              <a href="#" class="modalform" data-h="{{ $data->id }}|suppllibform|" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Modifier le Libellé" submitbtn="Modifier"><i class="fas fa-edit fa-size text-warning"></i></a>
+              <a href="#" class="modalform" data-h="{{ $data->id }}|suppllibform|" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Modifier le Nom" submitbtn="Modifier"><i class="fas fa-edit fa-size text-warning"></i></a>
               @else
               <a href="#"><i class="fas fa-edit fa-size text-muted"></i></a>
               @endif
               @if(in_array(4, Session::get('rights')[14]))
-              <a href="#" class="status" data-h="{{ $data->id.'|'.$data->status.'|14' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="{{ $titre }} du Libellé"><i class="fas fa-{{ $icone }} fa-size {{ $color }}"></i></a>
+              <a href="#" class="status" data-h="{{ $data->id.'|'.$data->status.'|14' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="{{ $titre }} du Nom"><i class="fas fa-{{ $icone }} fa-size {{ $color }}"></i></a>
               @else
               <a href="#"><i class="fas fa-{{ $icone }} fa-size text-muted"></i></a>
               @endif
