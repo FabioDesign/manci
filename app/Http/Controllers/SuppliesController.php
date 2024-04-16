@@ -31,9 +31,9 @@ class SuppliesController extends Controller
 			//Requete Read
 			$query = Supplie::select('supplies.id', 'suppl_typ.libelle AS type', 'suppl_lib.libelle AS suppllib', 'materials.libelle AS material', 'diameters.libelle AS diameter', 'amount', 'unit', 'supplies.created_at')
 			->join('suppl_lib', 'suppl_lib.id', '=', 'supplies.suppllib_id')
-			->join('materials', 'materials.id', '=', 'supplies.material_id')
-			->join('diameters', 'diameters.id', '=', 'supplies.diameter_id')
 			->join('suppl_typ', 'suppl_typ.id', '=', 'suppl_lib.suppltyp_id')
+			->leftJoin('materials', 'materials.id', '=', 'supplies.material_id')
+			->leftJoin('diameters', 'diameters.id', '=', 'supplies.diameter_id')
 			->orderByDesc('supplies.created_at')
 			->get();
 			return view('pages.supplies', compact('title', 'breadcrumb', 'currentMenu', 'currentSubMenu', 'addmodal', 'query'));
@@ -82,13 +82,9 @@ class SuppliesController extends Controller
 			//Validator
 			$validator = Validator::make($request->all(), [
 				'suppllib_id' => 'bail|required|integer|gt:0',
-				'material_id' => 'bail|required|integer|gt:0',
-				'diameter_id' => 'bail|required|integer|gt:0',
 				'amount' => 'bail|required|regex:/^[0-9\s]+$/',
 			], [
 				'suppllib_id.*' => "Nom (fourniture) non valide.",
-				'material_id.*' => "Type (fourniture) non valide.",
-				'diameter_id.*' => "Type (fourniture) non valide.",
 				'amount.required' => "Montant obligatoire.",
 				'amount.regex' => "Montant non valide.",
 			]);
@@ -97,8 +93,6 @@ class SuppliesController extends Controller
 				$errors = $validator->errors();
 				Log::warning("Nom (Fourniture) : ".serialize($request->post()));
 				if($errors->has('suppllib_id')) return '0|'.$errors->first('suppllib_id');
-				if($errors->has('material_id')) return '0|'.$errors->first('material_id');
-				if($errors->has('diameter_id')) return '0|'.$errors->first('diameter_id');
 				if($errors->has('amount')) return '0|'.$errors->first('amount');
 			}
 			$id = $request->id;

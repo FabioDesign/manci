@@ -25,7 +25,7 @@ class BilladdrController extends Controller
 			//Submenu
 			$currentSubMenu = 'billaddr';
 			//Modal
-			$addmodal = in_array(2, Session::get('rights')[8]) ? '<a href="#" class="btn btn-sm btn-primary modalform" data-h="0|billaddrform|" title="Ajouter Adresse Facturaction" submitbtn="Valider">Ajouter Adresse Facturaction</a>':'';
+			$addmodal = in_array(2, Session::get('rights')[10]) ? '<a href="#" class="btn btn-sm btn-primary modalform" data-h="0|billaddrform|" title="Ajouter Adresse Facturaction" submitbtn="Valider">Ajouter Adresse Facturaction</a>':'';
 			//Requete Read
 			$query = BillAddr::select('bill_addr.id', 'bill_addr.libelle', 'bill_addr.status', 'bill_addr.created_at', 'clients.libelle AS client')
 			->join('clients', 'clients.id', '=', 'bill_addr.client_id')

@@ -73,7 +73,7 @@ class SettingsController extends Controller
 				$material = Material::whereStatus('1')
 				->orderBy('libelle')
 				->get();
-				$return .= '|<option value="" selected disabled>Sélectionner</option>';
+				$return .= '|<option value="0" selected>Aucun</option>';
 				foreach($material as $data):
 					$return .= "<option value='".$data->id."'>".$data->libelle."</option>";
 				endforeach;
@@ -81,7 +81,7 @@ class SettingsController extends Controller
 				$diameter = Diameter::whereStatus('1')
 				->orderBy('libelle')
 				->get();
-				$return .= '|<option value="" selected disabled>Select</option>';
+				$return .= '|<option value="0" selected>Aucun</option>';
 				foreach($diameter as $data):
 					$return .= "<option value='".$data->id."'>".$data->libelle."</option>";
 				endforeach;

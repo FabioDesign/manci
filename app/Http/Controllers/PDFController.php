@@ -55,18 +55,18 @@ class PDFController extends Controller
 					$devisTxt = DevisTxt::where($where)->first();
 					if($devisTxt != '') $query[] = '<tr><td class="text-justify">'.nl2br($devisTxt->content).'<br></td><td></td><td></td><td></td><td></td></tr>';
 					//Requete Read
-					$req = Commande::select('commandes.amount', 'quantity', 'valeur', 'commandes.unit', 'display', 'libelle');
+					$req = Commande::select('commandes.amount', 'quantity', 'valeur', 'commandes.unit', 'libelle');
 					switch($devtyp_id){
 						case 1 :
 							$req->join('schedules', 'schedules.id','=','commandes.item_id');
 							$libelle = "TOTAL MAIN D'OEUVRE";
 						break;
 						case 2 :
-							$req = Commande::select('commandes.amount', 'quantity', 'valeur', 'commandes.unit', 'display', 'suppl_lib.libelle AS suppllib', 'materials.libelle AS material', 'diameters.libelle AS diameter')
+							$req = Commande::select('commandes.amount', 'quantity', 'valeur', 'commandes.unit', 'suppl_lib.libelle AS suppllib', 'materials.libelle AS material', 'diameters.libelle AS diameter')
 							->join('supplies', 'supplies.id','=','commandes.item_id')
 							->join('suppl_lib', 'suppl_lib.id', '=', 'supplies.suppllib_id')
-							->join('materials', 'materials.id', '=', 'supplies.material_id')
-							->join('diameters', 'diameters.id', '=', 'supplies.diameter_id');
+							->leftJoin('materials', 'materials.id', '=', 'supplies.material_id')
+							->leftJoin('diameters', 'diameters.id', '=', 'supplies.diameter_id');
 							$libelle = "TOTAL ".$data2->libelle;
 						break;
 						default :
@@ -77,21 +77,20 @@ class PDFController extends Controller
 					foreach($query3 as $data3):
 						$total = $data3->amount * $data3->quantity;
 						if($devtyp_id == 2) $data3->libelle = $data3->suppllib.' '.$data3->material.' '.$data3->diameter;
-						$return = '<tr><td>'.$data3->libelle.'</td>';
-						if($data3->display == 1){
-							$return .= '<td class="text-center">'.$data3->valeur.'</td>
-							<td class="text-center">'.$data3->unit.'</td>
+						$return = '<tr><td>'.$data3->libelle.'</td><td class="text-center">'.$data3->valeur.'</td>';
+						if($data1->see_price == 1){
+							$return .= '<td class="text-center">'.$data3->unit.'</td>
 							<td class="text-end">'.number_format($data3->amount, 0, ',', '.').'</td>
 							<td class="text-end">'.number_format($total, 0, ',', '.').'</td>';
 						}else
-							$return .= '<td></td><td></td><td></td><td></td>';
+							$return .= '<td></td><td></td><td></td>';
 						$return .= '</tr>';
 						$query[] = $return;
 					endforeach;
 					//Remise
 					$libelle .= $proforma->mt_rem == 0 ? '':' (REMISE '.$proforma->mt_rem.'%)';
 					//Total
-					$query[] = '<tr><td class="fw-bold">'.$libelle.'</td><td></td><td></td><td></td><td class="text-end fw-bold">'.number_format($proforma->total, 0, ',', '.').'</td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr>';
+					$query[] = '<tr><td class="fw-bold">'.$libelle.'</td><td></td><td></td><td></td><td class="text-end fw-bold">'.number_format($proforma->total, 0, ',', '.').'</td></tr>';
 				}
 			endforeach;
 		endforeach;
@@ -140,18 +139,18 @@ class PDFController extends Controller
 					$devisTxt = DevisTxt::where($where)->first();
 					if($devisTxt != '') $query[] = '<tr><td class="text-justify">'.nl2br($devisTxt->content).'<br></td><td></td><td></td><td></td><td></td></tr>';
 					//Requete Read
-					$req = Commande::select('commandes.amount', 'quantity', 'valeur', 'commandes.unit', 'display', 'libelle');
+					$req = Commande::select('commandes.amount', 'quantity', 'valeur', 'commandes.unit', 'libelle');
 					switch($devtyp_id){
 						case 1 :
 							$req->join('schedules', 'schedules.id','=','commandes.item_id');
 							$libelle = "TOTAL MAIN D'OEUVRE";
 						break;
 						case 2 :
-							$req = Commande::select('commandes.amount', 'quantity', 'valeur', 'commandes.unit', 'display', 'suppl_lib.libelle AS suppllib', 'materials.libelle AS material', 'diameters.libelle AS diameter')
+							$req = Commande::select('commandes.amount', 'quantity', 'valeur', 'commandes.unit', 'suppl_lib.libelle AS suppllib', 'materials.libelle AS material', 'diameters.libelle AS diameter')
 							->join('supplies', 'supplies.id','=','commandes.item_id')
 							->join('suppl_lib', 'suppl_lib.id', '=', 'supplies.suppllib_id')
-							->join('materials', 'materials.id', '=', 'supplies.material_id')
-							->join('diameters', 'diameters.id', '=', 'supplies.diameter_id');
+							->leftJoin('materials', 'materials.id', '=', 'supplies.material_id')
+							->leftJoin('diameters', 'diameters.id', '=', 'supplies.diameter_id');
 							$libelle = "TOTAL ".$data2->libelle;
 						break;
 						default :
@@ -162,21 +161,20 @@ class PDFController extends Controller
 					foreach($query3 as $data3):
 						$total = $data3->amount * $data3->quantity;
 						if($devtyp_id == 2) $data3->libelle = $data3->suppllib.' '.$data3->material.' '.$data3->diameter;
-						$return = '<tr><td>'.$data3->libelle.'</td>';
-						if($data3->display == 1){
-							$return .= '<td class="text-center">'.$data3->valeur.'</td>
-							<td class="text-center">'.$data3->unit.'</td>
+						$return = '<tr><td>'.$data3->libelle.'</td><td class="text-center">'.$data3->valeur.'</td>';
+						if($data1->see_price == 1){
+							$return .= '<td class="text-center">'.$data3->unit.'</td>
 							<td class="text-end">'.number_format($data3->amount, 0, ',', '.').'</td>
 							<td class="text-end">'.number_format($total, 0, ',', '.').'</td>';
 						}else
-							$return .= '<td></td><td></td><td></td><td></td>';
+							$return .= '<td></td><td></td><td></td>';
 						$return .= '</tr>';
 						$query[] = $return;
 					endforeach;
 					//Remise
 					$libelle .= $proforma->mt_rem == 0 ? '':' (REMISE '.$proforma->mt_rem.'%)';
 					//Total
-					$query[] = '<tr><td class="fw-bold">'.$libelle.'</td><td></td><td></td><td></td><td class="text-end fw-bold">'.number_format($proforma->total, 0, ',', '.').'</td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr>';
+					$query[] = '<tr><td class="fw-bold">'.$libelle.'</td><td></td><td></td><td></td><td class="text-end fw-bold">'.number_format($proforma->total, 0, ',', '.').'</td></tr>';
 				}
 			endforeach;
 		endforeach;

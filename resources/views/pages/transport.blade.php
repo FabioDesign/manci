@@ -42,7 +42,7 @@
             <td class="text-center">{{ Myhelper::formatDateFr($data->created_at) }}</td>
             <td class="text-center"><span data-kt-element="status" class="badge {{ $badge }}">{{ $status }}</span></td>
             <td class="text-center">
-              @if((in_array(3, Session::get('rights')[15]))&&($data->status == 0))
+              @if(in_array(3, Session::get('rights')[15]))
               <a href="#" class="modalform" data-h="{{ $data->id }}|transportform|mw-500px" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Modifier le transport" submitbtn="Modifier"><i class="fas fa-edit fa-size text-warning"></i></a>
               @else
               <a href="#"><i class="fas fa-edit fa-size text-muted"></i></a>

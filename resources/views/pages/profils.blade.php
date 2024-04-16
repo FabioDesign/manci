@@ -40,7 +40,7 @@
             <td class="text-center">{{ Myhelper::formatDateFr($data->created_at) }}</td>
             <td class="text-center"><span data-kt-element="status" class="badge {{ $badge }} fw-bold px-4 py-3">{{ $status }}</span></td>
             <td class="text-center">
-              @if((in_array(3, Session::get('rights')[4]))&&($data->status == 0))
+              @if(in_array(3, Session::get('rights')[4]))
               <a href="/profilright/{{ $data->id }}" data-bs-toggle="tooltip" data-bs-theme="dark" data-bs-placement="top" title="Modifier profil"><i class="fas fa-edit fa-size text-warning"></i></a>
               @else
               <a href="#"><i class="fas fa-edit fa-size text-muted"></i></a>

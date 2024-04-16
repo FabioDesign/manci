@@ -21,10 +21,12 @@ use App\Models\Diameter;
 use App\Models\Material;
 use App\Models\Suppllib;
 use App\Models\Suppltyp;
+use App\Models\DevisTtr;
 use App\Models\DevisTxt;
 use App\Models\Inspector;
 use App\Models\Transport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
@@ -195,77 +197,119 @@ class StatusController extends Controller{
 				break;
 				case 18:
 					$Ok = 1;
-					if($val == 0){
-						$action = 'transmis';
-						$type = 'Transmettre';
-						$set['transmitted_at'] = now();
-						$set['transmitted_id'] = Session::get('idUsr');
-					}
-					if($val == 2){
-						$set = [
-							'status' => '2',
-							'approved_at' => now(),
-							'approved_id' => Session::get('idUsr'),
-						];
-						$action = 'approuvé';
-						$type = 'Approuver';
-						$color = 'success';
-					}
-					if($val == 3){
-						$set = [
-							'status' => '3',
-							'approved_at' => now(),
-							'motif' => $request->motif,
-							'approved_id' => Session::get('idUsr'),
-						];
-						$action = 'rejeté';
-						$type = 'Rejeter';
-						$color = 'danger';
-					}
-					if($val == 4){
-						$set = [
-							'status' => '4',
-							'validated_at' => now(),
-							'validated_id' => Session::get('idUsr'),
-						];
-						$action = 'validé';
-						$type = 'Valider';
-						$color = 'success';
-					}
-					if($val == 5){
-						$set = [
-							'status' => '5',
-							'validated_at' => now(),
-							'motif' => $request->motif,
-							'validated_id' => Session::get('idUsr'),
-						];
-						$action = 'refusé';
-						$type = 'Refuser';
-						$color = 'danger';
-					}
-					$title = $libelle = 'Devis';
 					//Requete Read
 					$query = Devis::whereId($id)->first();
+					//Supprimer
+					if($val != 1){
+						if($val == 0){
+							$action = 'transmis';
+							$type = 'Transmettre';
+							$set['transmitted_at'] = now();
+							$set['transmitted_id'] = Session::get('idUsr');
+						}
+						if($val == 2){
+							$set = [
+								'status' => '2',
+								'approved_at' => now(),
+								'approved_id' => Session::get('idUsr'),
+							];
+							$action = 'approuvé';
+							$type = 'Approuver';
+							$color = 'success';
+						}
+						if($val == 3){
+							$set = [
+								'status' => '3',
+								'approved_at' => now(),
+								'motif' => $request->motif,
+								'approved_id' => Session::get('idUsr'),
+							];
+							$action = 'rejeté';
+							$type = 'Rejeter';
+							$color = 'danger';
+						}
+						if($val == 4){
+							$set = [
+								'status' => '4',
+								'validated_at' => now(),
+								'validated_id' => Session::get('idUsr'),
+							];
+							$action = 'validé';
+							$type = 'Valider';
+							$color = 'success';
+						}
+						if($val == 5){
+							$set = [
+								'status' => '5',
+								'validated_at' => now(),
+								'motif' => $request->motif,
+								'validated_id' => Session::get('idUsr'),
+							];
+							$action = 'refusé';
+							$type = 'Refuser';
+							$color = 'danger';
+						}
+						//Requete Update
+						Devis::findOrFail($id)->update($set);
+					}else{
+						$action = 'supprimé';
+						$type = 'Supprimer';
+						//Requete Read
+						$sql = DevisTtr::where('devis_id', $id)->get();
+						foreach($sql as $data):
+							$where = [
+								['devttr_id', $data->id],
+							];
+							DevisTxt::where($where)->delete();
+							Proforma::where($where)->delete();
+							Commande::where($where)->delete();
+						endforeach;
+						DevisTtr::where('devis_id', $id)->delete();
+			    		Devis::destroy($id);
+						//Requete Read
+						$stats = DB::table('statistic')->where('status', '1')->first();
+						$draft = $stats->draft - 1;
+						$set = [
+							'draft' => $draft,
+						];
+						DB::table('statistic')->where('status', '1')->update($set);
+					}
+					$title = $libelle = 'Devis';
 					//Libelle
 					$txt = $libelle.' N°'.$query->reference.' '.$action;
-					//Requete Update
-					Devis::findOrFail($id)->update($set);
 				break;
 				case 20:
 					$Ok = 1;
-					$title = 'Matière (fourniture)';
+					$title = 'Matière';
+					if($val == 2){
+						$action = 'supprimé';
+						$type = 'Supprimer';
+						$color = 'danger';
+			    		Material::destroy($id);
+					}else{
+						//Requete Update
+						Material::findOrFail($id)->update($set);
+					}
 					//Libelle
 					$txt = $title.' '.$action;
-					//Requete Update
-					Material::findOrFail($id)->update($set);
 				break;
 				case 21:
 					$Ok = 1;
-					$title = 'Qualification (fourniture)';
+					$title = 'Qualification';
 					//Libelle
 					$txt = $title.' '.$action;
 					//Requete Update
 					Diameter::findOrFail($id)->update($set);
+				break;
+				case 22:
+					$Ok = 1;
+					$title = 'Fourniture';
+					$action = 'supprimé';
+					$type = 'Supprimer';
+					$color = 'danger';
+					Supplie::destroy($id);
+					//Libelle
+					$txt = $title.' '.$action;
 				break;
 				default: break;
 			}

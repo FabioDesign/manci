@@ -80,7 +80,7 @@
 			<!--begin::Row-->
 			<div class="row gx-10 mb-5">
 				<!--begin::Col-->
-				<div class="col-sm-12 col-xl-8">
+				<div class="col-sm-12 col-xl-7">
 					<label class="form-label fw-bolder text-dark fs-6 required">Titre</label>
 					<!--begin::Option-->
 					<label class="form-check form-check-custom form-check-inline form-check-solid mx-5">
@@ -98,7 +98,7 @@
 				</div>
 				<!--end::Col-->
 				<!--begin::Col-->
-				<div class="col-sm-12 col-xl-4">
+				<div class="col-sm-12 col-xl-3">
 					<label class="form-label fw-bolder text-dark fs-6 required">Type devis</label>
 					<select id="devtyp_id" name="devtyp_id" class="form-control form-select form-control-solid" aria-label="Select example">
 						<option value="" selected disabled>Sélectionner</option>
@@ -106,6 +106,23 @@
 							<option value="{{ $data->id }}">{{ $data->libelle }}</option>
 						@endforeach
 					</select>
+				</div>
+				<!--end::Col-->
+				<!--begin::Col-->
+				<div class="col-sm-12 col-xl-2">
+					<label class="form-label fw-bolder text-dark fs-6 d-block">Afficher prix</label>
+					<!--begin::Option-->
+					<label class="form-check form-check-custom form-check-inline form-check-solid mt-3">
+						<input type="radio" name="see_price" value="1" class="form-check-input display-o" checked>
+						<span class="fw-semibold ps-2 fs-6">Oui</span>
+					</label>
+					<!--end::Option-->
+					<!--begin::Option-->
+					<label class="form-check form-check-custom form-check-inline form-check-solid">
+						<input type="radio" name="see_price" value="0" class="form-check-input display-n">
+						<span class="fw-semibold ps-2 fs-6">Non</span>
+					</label>
+					<!--end::Option-->
 				</div>
 				<!--end::Col-->
 			</div>
@@ -146,10 +163,7 @@
 				<datalist id="qte"></datalist>
 				<div class="row mb-5 devistype">
 					<!--begin::Col-->
-					<div class="col-sm-12 col-xl-4 position-relative">
-						<label class="form-check form-check-custom form-check-solid position-absolute top-50 formcheck">
-							<input type="checkbox" name="display[]" class="form-check-input h-20px w-20px display">
-						</label>
+					<div class="col-sm-12 col-xl-4">
 						<label class="form-label fw-bolder text-dark fs-6 required">Designation</label>
 						<select name="item_id[]" class="form-control form-select form-control-solid item_id" aria-label="Select example">
 							<option value="" selected disabled>Sélectionner</option>
@@ -300,7 +314,7 @@
 							<th class="min-w-300px w-475px text-center">Designation</th>
 							<th class="min-w-100px w-100px text-center">PU</th>
 							<th class="min-w-100px w-100px text-center">Qté</th>
-							<th class="min-w-100px w-100px text-center">Total</th>
+							<th class="min-w-100px w-100px text-end">Total</th>
 						</tr>
 					</thead>
 					<!--end::Table head-->

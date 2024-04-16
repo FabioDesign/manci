@@ -60,6 +60,9 @@
               @if((in_array(7, Session::get('rights')[18]))&&($data->status == 2))
               <a href="#" class="modalform" data-h="{{ $data->id }}|devstatus|modal-md" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Valider/Refuser le devis"><i class="far fa-question-circle fa-size text-danger"></i></a>
               @endif
+              @if((in_array(8, Session::get('rights')[18]))&&($data->status == 0))
+              <a href="#" class="status" data-h="{{ $data->id.'|1|18' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Supprimer le devis"><i class="fas fa-trash-alt fa-size text-danger"></i></a>
+              @endif
             </td>
           </tr>
           @php endforeach; @endphp

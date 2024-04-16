@@ -39,7 +39,10 @@ class SuppllibController extends Controller
 		if(Session::has('idUsr')){
 			//Requete Read
 			$query = Suppllib::select('id', 'libelle')
-			->whereSuppltypId($request->id)
+			->where([
+				['status', '1'],
+				['suppltyp_id', $request->id],
+			])
 			->orderBy('libelle')
 			->get();
 			$return = [];

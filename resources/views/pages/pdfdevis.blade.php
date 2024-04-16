@@ -20,23 +20,27 @@
       body {
         font-size: 9pt;
         font-family: "Times New Roman", Times, serif;
-        padding-top: 110px;
+        padding-top: 115px;
         padding-left: 50px;
         padding-right: 50px;
-        padding-bottom: 60px;
+        padding-bottom: 70px;
         background-image: url({{ $devis->logo }});
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
       }
-      .mytable>thead>tr>th {
-        padding: 0 3px;
-        border-spacing: 0px;
+      table.devTable {
+        border: 1px solid #000;
+        border-collapse: collapse;
+      }
+      table.devTable th {
+        padding: 3px 2px;
+        border-spacing: 0;
         border: 1px solid #000;
       }
-      .mytable>tbody>tr>td, .mytable>tfoot>tr>td {
-        padding: 0 3px;
-        border-spacing: 0px;
+      table.devTable td {
+        padding: 3px 2px;
+        border-spacing: 0;
         border-left: 1px solid #000;
         border-right: 1px solid #000;
       }
@@ -52,7 +56,7 @@
     </style>
   </head>
   <body>
-    <table class="table">
+    <table class="table noborder">
       <tbody>
         <tr>
           <td width="50%">
@@ -66,7 +70,7 @@
         </tr>
       </tbody>
     </table>
-    <table class="table table-bordered mytable">
+    <table class="table devTable">
       <thead>
         <tr>
           <th width="67%" class="text-center">DESIGNATION</th>
@@ -86,8 +90,7 @@
         @if(($devis->mt_rem != 0)||($devis->sum_tva != 0))
         @php $border = ""; @endphp
         <tr>
-          <td class="fw-bold border-top">
-            TOTAL</td>
+          <td class="fw-bold border-top">TOTAL</td>
           <td colspan="4" class="text-end fw-bold border-top">{{ number_format($devis->mt_ht, 0, ',', '.') }}</td>
         </tr>
         @endif
@@ -119,7 +122,6 @@
             @endif
           </td>
         </tr>
-        <tr><td colspan="5" class="border-top"></td></tr>
       </tfoot>
     </table>
     <table class="table" style="margin-top: -15px;">

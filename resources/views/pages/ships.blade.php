@@ -50,7 +50,7 @@
             <td class="text-center"><span data-kt-element="status" class="badge {{ $badge }}">{{ $status }}</span></td>
             <td class="text-center">
               <a href="#" class="modaldetail" data-h="{{ $data->id }}|shipdetail|" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Détail du navire"><i class="fab fa-wpforms fa-size text-primary"></i></a>&nbsp;
-              @if((in_array(3, Session::get('rights')[8]))&&($data->status == 0))
+              @if(in_array(3, Session::get('rights')[8]))
               <a href="#" class="modalform" data-h="{{ $data->id }}|shipform|" data-bs-toggle="tooltip" data-bs-theme="dark" data-bs-placement="top" title="Modifier le navire" submitbtn="Modifier"><i class="fas fa-edit fa-size text-warning"></i></a>
               @else
               <a href="#"><i class="fas fa-edit fa-size text-muted"></i></a>

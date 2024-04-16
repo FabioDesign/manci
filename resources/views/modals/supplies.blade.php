@@ -26,9 +26,9 @@
 <div class="row fv-row mb-7">
   <!--begin::Col-->
   <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6 required">Matière</label>
-    <select name="material_id" class="form-control form-select form-control-solid requiredField" aria-label="Select example">
-      <option value="" selected disabled>Sélectionner</option>
+    <label class="form-label fw-bolder text-dark fs-6">Matière</label>
+    <select name="material_id" class="form-control form-select form-control-solid" aria-label="Select example">
+      <option value="0" selected>Aucune</option>
       @foreach($material as $data)
         <option value="{{ $data->id }}" @php echo $material_id == $data->id ? 'selected':'' @endphp>{{ $data->libelle }}</option>
       @endforeach
@@ -37,9 +37,9 @@
   <!--end::Col-->
   <!--begin::Col-->
   <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6 required">Qualification</label>
-    <select name="diameter_id" class="form-control form-select form-control-solid requiredField" aria-label="Select example">
-      <option value="" selected disabled>Sélectionner</option>
+    <label class="form-label fw-bolder text-dark fs-6">Qualification</label>
+    <select name="diameter_id" class="form-control form-select form-control-solid" aria-label="Select example">
+      <option value="0" selected>Aucune</option>
       @foreach($diameter as $data)
         <option value="{{ $data->id }}" @php echo $diameter_id == $data->id ? 'selected':'' @endphp>{{ $data->libelle }}</option>
       @endforeach

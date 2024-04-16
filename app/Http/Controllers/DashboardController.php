@@ -26,7 +26,7 @@ class DashboardController extends Controller
 			//Modal
 			$addmodal = '';
 			//Requete Read
-			$stats = DB::table('statistic')->first();
+			$stats = DB::table('statistic')->where('status', '1')->first();
 			$draft = $stats == '' ? 0:$stats->draft;
 			$pending = $stats == '' ? 0:$stats->pending;
 			$approved = $stats == '' ? 0:$stats->approved;

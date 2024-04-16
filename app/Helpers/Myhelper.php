@@ -6,6 +6,8 @@
 	use GuzzleHttp\Psr7;
 	use App\Models\Logs;
 	use GuzzleHttp\Client;
+	use App\Models\Supplie;
+	use App\Models\Commande;
 	use App\Models\Messagerie;
 	use Illuminate\Support\Str;
 	use Illuminate\Http\Request;
@@ -60,7 +62,10 @@
 		//Format Euro
 	  	public static function formatEuro($euro){
 		  	$arrayEuro = Str::of($euro)->explode('.');
-		  	$euro = number_format($arrayEuro[0], 0, ',', '.').",".$arrayEuro[1];
+			if(sizeof($arrayEuro) == 1)
+				$euro = number_format($euro, 0, ',', '.');
+			else
+		  		$euro = number_format($arrayEuro[0], 0, ',', '.').",".$arrayEuro[1];
 			return $euro;
 		}
 		//Piste d'audit
@@ -78,6 +83,19 @@
 			}catch(Exception $e){
 				Log::warning('Error : '.$e->getMessage());
 			}
+		}
+		//Search Material
+		public static function searchMat($field){
+			$count = Supplie::where('material_id', $field)->count();
+			return $count;
+		}
+		//Search Supplie
+		public static function searchSupp($field){
+			$count = Commande::where([
+				'devtyp_id' => 2,
+				'item_id' => $field
+			])->count();
+			return $count;
 		}
     	//Send mail
 	  	public static function sendMail($to, $cc, $subject, $content){

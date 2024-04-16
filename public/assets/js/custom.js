@@ -115,8 +115,8 @@ $(document).on('click', '.status', function(e){
           Swal.fire({
             title: titleLoad,
             text: textLoad,
-            showConfirmButton: false,
             timer: 50000,
+            showConfirmButton: false,
           }).then(function(result){
             if(result.dismiss === "timer"){
               console.log("I was closed by the timer")
@@ -176,13 +176,13 @@ $(document).on('click', '.modalform', function(e){
         title: titleLoad,
         text: textLoad,
         timer: 50000,
+        showConfirmButton: false,
       }).then((result) => {
         /* Read more about handling dismissals below */
         if(result.dismiss === Swal.DismissReason.timer){
           console.log('I was closed by the timer');
         }
       });
-      $('.swal2-confirm').css('display', 'none');
     },
     success:function(response){
       $('.swal2-confirm').trigger('click');
@@ -222,13 +222,13 @@ $(document).on('click', '.modaldetail', function(e){
         title: titleLoad,
         text: textLoad,
         timer: 50000,
+        showConfirmButton: false,
       }).then((result) => {
         /* Read more about handling dismissals below */
         if(result.dismiss === Swal.DismissReason.timer){
           console.log('I was closed by the timer');
         }
       });
-      $('.swal2-confirm').css('display', 'none');
     },
     success:function(response){
       $('.swal2-confirm').trigger('click');
@@ -371,6 +371,20 @@ $(document).on('click', '.submitForm', function(e){
               confirmButton: "btn btn-square font-weight-bold btn-light-success"
             }
           }).then(function(){
+            if(bill == 4){
+              Swal.fire({
+                title: titleLoad,
+                text: textLoad,
+                timer: 50000,
+                showConfirmButton: false,
+              }).then((result) => {
+                /* Read more about handling dismissals below */
+                if(result.dismiss === Swal.DismissReason.timer){
+                  console.log('I was closed by the timer');
+                }
+              });
+              Pdfcreator('pdfbills', id);
+            }
             if(splitter[0] == 1) location.reload();
             else location.href = '/';
           });
@@ -381,6 +395,5 @@ $(document).on('click', '.submitForm', function(e){
         }
       }
     });
-    if(bill == 4) Pdfcreator('pdfbills', id);
   }
 });

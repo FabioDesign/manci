@@ -29,14 +29,18 @@
         background-repeat: no-repeat;
         background-position: center center; */
       }
-      .mytable>thead>tr>th {
-        padding: 0 3px;
-        border-spacing: 0px;
+      table.devTable {
+        border: 1px solid #000;
+        border-collapse: collapse;
+      }
+      table.devTable th {
+        padding: 3px 2px;
+        border-spacing: 0;
         border: 1px solid #000;
       }
-      .mytable>tbody>tr>td, .mytable>tfoot>tr>td {
-        padding: 0 3px;
-        border-spacing: 0px;
+      table.devTable td {
+        padding: 3px 2px;
+        border-spacing: 0;
         border-left: 1px solid #000;
         border-right: 1px solid #000;
       }
@@ -52,24 +56,20 @@
     </style>
   </head>
   <body>
-    <table class="table table-bordered mytable">
-      <thead>
+    <table class="table noborder">
+      <tbody>
         <tr>
-          <td colspan="5">
-            <table class="table noborder">
-              <tbody>
-                <tr>
-                  <td width="310px">&nbsp;</td>
-                  <td width="285px">
-                    <strong>{{ $bills->bill_addr }}</strong><br>
-                    {!! nl2br($bills->content) !!}
-                  </td>
-                  <td width="100px">&nbsp;</td>
-                </tr>
-              </tbody>
-            </table>
+          <td width="310px">&nbsp;</td>
+          <td width="285px">
+            <strong>{{ $bills->bill_addr }}</strong><br>
+            {!! nl2br($bills->content) !!}
           </td>
+          <td width="100px">&nbsp;</td>
         </tr>
+      </tbody>
+    </table>
+    <table class="table devTable">
+      <thead>
         <tr>
           <th width="67%" class="text-center">DESIGNATION</th>
           <th width="5%" class="text-center">QTE</th>
@@ -121,7 +121,6 @@
             @endif
           </td>
         </tr>
-        <tr><td colspan="5" class="border-top"></td></tr>
       </tfoot>
     </table>
     <table class="table" style="margin-top: -15px;">

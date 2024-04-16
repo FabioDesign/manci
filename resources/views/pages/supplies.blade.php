@@ -41,6 +41,11 @@
               @else
               <a href="#"><i class="fas fa-edit fa-size text-muted"></i></a>
               @endif
+              @if((in_array(8, Session::get('rights')[22]))&&(Myhelper::searchSupp($data->id) == 0))
+              <a href="#" class="status" data-h="{{ $data->id.'|2|22' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Supprimer la Fourniture"><i class="fas fa-trash-alt fa-size text-danger"></i></a>
+              @else
+              <a href="#"><i class="fas fa-trash-alt fa-size text-muted"></i></a>
+              @endif
             </td>
           </tr>
           @endforeach
