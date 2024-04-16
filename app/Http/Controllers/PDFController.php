@@ -78,7 +78,7 @@ class PDFController extends Controller
 						$total = $data3->amount * $data3->quantity;
 						if($devtyp_id == 2) $data3->libelle = $data3->suppllib.' '.$data3->material.' '.$data3->diameter;
 						$return = '<tr><td>'.$data3->libelle.'</td><td class="text-center">'.$data3->valeur.'</td>';
-						if($data1->see_price == 1){
+						if($proforma->see_price == 1){
 							$return .= '<td class="text-center">'.$data3->unit.'</td>
 							<td class="text-end">'.number_format($data3->amount, 0, ',', '.').'</td>
 							<td class="text-end">'.number_format($total, 0, ',', '.').'</td>';
@@ -162,7 +162,7 @@ class PDFController extends Controller
 						$total = $data3->amount * $data3->quantity;
 						if($devtyp_id == 2) $data3->libelle = $data3->suppllib.' '.$data3->material.' '.$data3->diameter;
 						$return = '<tr><td>'.$data3->libelle.'</td><td class="text-center">'.$data3->valeur.'</td>';
-						if($data1->see_price == 1){
+						if($proforma->see_price == 1){
 							$return .= '<td class="text-center">'.$data3->unit.'</td>
 							<td class="text-end">'.number_format($data3->amount, 0, ',', '.').'</td>
 							<td class="text-end">'.number_format($total, 0, ',', '.').'</td>';
