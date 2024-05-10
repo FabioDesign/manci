@@ -80,8 +80,8 @@ class PDFController extends Controller
 						$return = '<tr><td>'.$data3->libelle.'</td><td class="text-center">'.$data3->valeur.'</td>';
 						if($proforma->see_price == 1){
 							$return .= '<td class="text-center">'.$data3->unit.'</td>
-							<td class="text-end">'.number_format($data3->amount, 0, ',', '.').'</td>
-							<td class="text-end">'.number_format($total, 0, ',', '.').'</td>';
+							<td class="text-end">'.number_format($data3->amount, 0, ',', '.').'&nbsp;</td>
+							<td class="text-end">'.number_format($total, 0, ',', '.').'&nbsp;</td>';
 						}else
 							$return .= '<td></td><td></td><td></td>';
 						$return .= '</tr>';
@@ -90,7 +90,7 @@ class PDFController extends Controller
 					//Remise
 					$libelle .= $proforma->mt_rem == 0 ? '':' (REMISE '.$proforma->mt_rem.'%)';
 					//Total
-					$query[] = '<tr><td class="fw-bold">'.$libelle.'</td><td></td><td></td><td></td><td class="text-end fw-bold">'.number_format($proforma->total, 0, ',', '.').'</td></tr>';
+					$query[] = '<tr><td class="fw-bold">'.$libelle.'</td><td></td><td></td><td></td><td class="text-end fw-bold">'.number_format($proforma->total, 0, ',', '.').'&nbsp;</td></tr>';
 				}
 			endforeach;
 		endforeach;
@@ -164,8 +164,8 @@ class PDFController extends Controller
 						$return = '<tr><td>'.$data3->libelle.'</td><td class="text-center">'.$data3->valeur.'</td>';
 						if($proforma->see_price == 1){
 							$return .= '<td class="text-center">'.$data3->unit.'</td>
-							<td class="text-end">'.number_format($data3->amount, 0, ',', '.').'</td>
-							<td class="text-end">'.number_format($total, 0, ',', '.').'</td>';
+							<td class="text-end">'.number_format($data3->amount, 0, ',', '.').'&nbsp;</td>
+							<td class="text-end">'.number_format($total, 0, ',', '.').'&nbsp;</td>';
 						}else
 							$return .= '<td></td><td></td><td></td>';
 						$return .= '</tr>';
@@ -174,7 +174,7 @@ class PDFController extends Controller
 					//Remise
 					$libelle .= $proforma->mt_rem == 0 ? '':' (REMISE '.$proforma->mt_rem.'%)';
 					//Total
-					$query[] = '<tr><td class="fw-bold">'.$libelle.'</td><td></td><td></td><td></td><td class="text-end fw-bold">'.number_format($proforma->total, 0, ',', '.').'</td></tr>';
+					$query[] = '<tr><td class="fw-bold">'.$libelle.'</td><td></td><td></td><td></td><td class="text-end fw-bold">'.number_format($proforma->total, 0, ',', '.').'&nbsp;</td></tr>';
 				}
 			endforeach;
 		endforeach;

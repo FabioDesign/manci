@@ -90,7 +90,7 @@
         <tr>
           <td class="fw-bold border-top">
             TOTAL</td>
-          <td colspan="4" class="text-end fw-bold border-top">{{ number_format($bills->mt_ht, 0, ',', '.') }}</td>
+          <td colspan="4" class="text-end fw-bold border-top">{{ number_format($bills->mt_ht, 0, ',', '.') }}&nbsp;</td>
         </tr>
         @endif
         @php
@@ -99,17 +99,17 @@
         @endphp
         <tr>
           <td class="fw-bold">REMISE ({{ $bills->sum_rem }}%)</td>
-          <td colspan="4" class="text-end fw-bold">{{ number_format($bills->mt_rem, 0, ',', '.') }}</td>
+          <td colspan="4" class="text-end fw-bold">{{ number_format($bills->mt_rem, 0, ',', '.') }}&nbsp;</td>
         </tr>
         <tr>
           <td class="fw-bold">TOTAL - REMISE</td>
-          <td colspan="4" class="text-end fw-bold">{{ number_format($totalrem, 0, ',', '.') }}</td>
+          <td colspan="4" class="text-end fw-bold">{{ number_format($totalrem, 0, ',', '.') }}&nbsp;</td>
         </tr>
         @php } @endphp
         @if($bills->see_tva == 1)
         <tr>
           <td class="fw-bold">TVA ({{ $bills->sum_tva }}%)</td>
-          <td colspan="4" class="text-end fw-bold">{{ number_format($bills->mt_tva, 0, ',', '.') }}</td>
+          <td colspan="4" class="text-end fw-bold">{{ number_format($bills->mt_tva, 0, ',', '.') }}&nbsp;</td>
         </tr>
         @endif
         <tr>
@@ -119,6 +119,7 @@
             @if($bills->see_euro == 1)
             - {{ Myhelper::formatEuro($bills->mt_euro) }} €
             @endif
+            &nbsp;
           </td>
         </tr>
       </tfoot>

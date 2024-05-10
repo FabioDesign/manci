@@ -23,7 +23,7 @@
         padding-top: 115px;
         padding-left: 50px;
         padding-right: 50px;
-        padding-bottom: 70px;
+        padding-bottom: 80px;
         background-image: url({{ $devis->logo }});
         background-size: cover;
         background-repeat: no-repeat;
@@ -91,7 +91,7 @@
         @php $border = ""; @endphp
         <tr>
           <td class="fw-bold border-top">TOTAL</td>
-          <td colspan="4" class="text-end fw-bold border-top">{{ number_format($devis->mt_ht, 0, ',', '.') }}</td>
+          <td colspan="4" class="text-end fw-bold border-top">{{ number_format($devis->mt_ht, 0, ',', '.') }}&nbsp;</td>
         </tr>
         @endif
         @php
@@ -100,17 +100,17 @@
         @endphp
         <tr>
           <td class="fw-bold">REMISE ({{ $devis->sum_rem }}%)</td>
-          <td colspan="4" class="text-end fw-bold">{{ number_format($devis->mt_rem, 0, ',', '.') }}</td>
+          <td colspan="4" class="text-end fw-bold">{{ number_format($devis->mt_rem, 0, ',', '.') }}&nbsp;</td>
         </tr>
         <tr>
           <td class="fw-bold">TOTAL - REMISE</td>
-          <td colspan="4" class="text-end fw-bold">{{ number_format($totalrem, 0, ',', '.') }}</td>
+          <td colspan="4" class="text-end fw-bold">{{ number_format($totalrem, 0, ',', '.') }}&nbsp;</td>
         </tr>
         @php } @endphp
         @if($devis->see_tva == 1)
         <tr>
           <td class="fw-bold">TVA ({{ $devis->sum_tva }}%)</td>
-          <td colspan="4" class="text-end fw-bold">{{ number_format($devis->mt_tva, 0, ',', '.') }}</td>
+          <td colspan="4" class="text-end fw-bold">{{ number_format($devis->mt_tva, 0, ',', '.') }}&nbsp;</td>
         </tr>
         @endif
         <tr>
@@ -120,6 +120,7 @@
             @if($devis->see_euro == 1)
             - {{ Myhelper::formatEuro($devis->mt_euro) }} €
             @endif
+            &nbsp;
           </td>
         </tr>
       </tfoot>

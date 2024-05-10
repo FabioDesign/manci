@@ -56,7 +56,6 @@ $(document).on('change', '.type_id', function(){
 $(document).on('change', '.item_id', function(){
   var id = $(this).val();
   var type = $('#devtyp_id').val();
-  // $(this).siblings().find('.display').val(id);
   var current = $(this).parent('.col-sm-12').siblings();
   var mat = current.find('.material_id').val();
   var dia = current.find('.diameter_id').val();
@@ -133,7 +132,6 @@ function Billaddrlist(client_id, billaddr_id){
 //Modal Form
 $(document).on('change', '#devtyp_id', function(){
   $('#solde').val(0);
-  $('#content').val('');
   $('.remtyp').html(remtyp);
   var id = $(this).val();
   settinglist(id, 0);
@@ -365,7 +363,7 @@ $(document).on('click', '.submitDev', function(e){
           Pdfcreator('pdfdevis', splitter[2]);
           $('.msgError').css('color', '#47BE7D').html(splitter[1]);
           $('.devttr').attr('checked', 'checked').removeAttr('disabled');
-          $('#devtyp_id').html('<option value="" selected="" disabled="">Sélectionner</option><option value="1">TRAVAUX</option><option value="2">FOURNITURES</option><option value="3">TRANSPORT</option>');
+          $('#devtyp_id').html('<option value="" disabled="">Sélectionner</option><option value="1">TRAVAUX</option><option value="2">FOURNITURES</option><option value="3">TRANSPORT</option>');
           var contentApp = '<datalist id="qte"></datalist><div class="row mb-5 devistype"><div class="col-sm-12 col-xl-4"><label class="form-label fw-bolder text-dark fs-6 required">Designation</label><select name="item_id[]" class="form-control form-select form-control-solid item_id" aria-label="Select example">Sélectionner</select></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Prix unitaire</label><input type="text" name="price[]" placeholder="0" class="form-control form-control-solid text-center amount price" onKeyUp="verif_num(this)" readonly /></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Qté</label><input type="text" name="qte[]" list="qte" placeholder="0" class="form-control form-control-solid text-center qte space" readonly /></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6">Unité</label><input type="text" name="unit[]" class="form-control form-control-solid text-center unit space" readonly /></div><div class="col-sm-12 col-xl-2 position-relative"><label class="form-label fw-bolder text-dark fs-6 required">Total</label><input type="text" value="0" class="form-control form-control-solid text-center w-85 total" readonly /><a href="#" class="btn btn-icon position-absolute bottom-0 end-0 pe-none"><i class="ki-duotone ki-trash text-dark fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i></a></div></div>';
           $('.form-command').html(contentApp);
           //Ligne devis
