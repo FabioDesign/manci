@@ -23,13 +23,13 @@
             if($data->status == 1){
               $icone = 'ban';
               $status = 'Activé';
-              $titre = 'Désactivation';
+              $titre = 'Désactiver';
               $color = 'text-danger';
               $badge = 'badge-light-success';
             }else{
               $icone = 'check';
               $status = 'Désactivé';
-              $titre = 'Activation';
+              $titre = 'Activer';
               $color = 'text-success';
               $badge = 'badge-light-danger';
             }
@@ -46,12 +46,12 @@
               <a href="#"><i class="fas fa-edit fa-size text-muted"></i></a>
               @endif
               @if(in_array(4, Session::get('rights')[20]))
-              <a href="#" class="status" data-h="{{ $data->id.'|'.$data->status.'|20' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="{{ $titre }} de la Matière"><i class="fas fa-{{ $icone }} fa-size {{ $color }}"></i></a>
+              <a href="#" class="status" data-h="{{ $data->id.'|'.$data->status.'|20' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="{{ $titre }} la Matière"><i class="fas fa-{{ $icone }} fa-size {{ $color }}"></i></a>
               @else
               <a href="#"><i class="fas fa-{{ $icone }} fa-size text-muted"></i></a>
               @endif
               @if((in_array(8, Session::get('rights')[20]))&&(Myhelper::searchMat($data->id) == 0))
-              <a href="#" class="status" data-h="{{ $data->id.'|2|20' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Supprimer la Matière"><i class="fas fa-trash-alt fa-size" style="color: #8E44AD"></i></a>
+              <a href="#" class="status" data-h="{{ $data->id.'|2|20' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Supprimer la Matière"><i class="fas fa-trash-alt fa-size text-violet"></i></a>
               @else
               <a href="#"><i class="fas fa-trash-alt fa-size text-muted"></i></a>
               @endif

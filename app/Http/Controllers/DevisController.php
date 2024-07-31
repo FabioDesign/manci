@@ -37,13 +37,13 @@ class DevisController extends Controller
 			//Submenu
 			$currentSubMenu = '';
 			//Requete Read
-			$query = Devis::select('devis.id', 'reference', 'date_at', 'mt_ttc', 'devis.status', 'libelle', 'filename', 'lastname', 'firstname')
+			$query = Devis::select('devis.id', 'reference', 'date_at', 'mt_ttc', 'devis.status', 'bill_addr.libelle AS bill_addr', 'ships.libelle AS libship', 'filename', 'lastname', 'firstname')
 			->join('bill_addr', 'bill_addr.id', '=', 'devis.billaddr_id')
+			->leftJoin('ships', 'ships.id', '=', 'devis.ship_id')
 			->join('users', 'users.id', '=', 'devis.user_id')
 			->orderByDesc('devis.created_at')
 			->get();
-			$page = in_array(8, Session::get('rights')[18]) ? 'pages.devis2':'pages.devis1';
-			$page = 'pages.devis2';
+			$page = 'pages.devis';
 			//Modal
 			$addmodal = in_array(2, Session::get('rights')[18]) ? '<a href="/devisform/0" class="btn btn-sm fw-bold btn-primary">Ajouter un devis</a>':'';
 			return view($page, compact('title', 'breadcrumb', 'currentMenu', 'currentSubMenu', 'addmodal', 'query'));
@@ -60,8 +60,9 @@ class DevisController extends Controller
 			//Submenu
 			$currentSubMenu = '';
 			//Requete Read
-			$query = Devis::select('reference', 'validated_at', 'mt_ttc', 'libelle', 'filename', 'lastname', 'firstname')
+			$query = Devis::select('reference', 'validated_at', 'mt_ttc', 'ships.libelle AS libship', 'bill_addr.libelle AS bill_addr', 'filename', 'lastname', 'firstname')
 			->join('bill_addr', 'bill_addr.id', '=', 'devis.billaddr_id')
+			->leftJoin('ships', 'ships.id', '=', 'devis.ship_id')
 			->join('users', 'users.id', '=', 'devis.user_id')
 			->where('devis.status', '4')
 			->orderByDesc('validated_at')
@@ -74,8 +75,6 @@ class DevisController extends Controller
 	//Formulaire devis
 	public function forms(request $request){
     	if(Session::has('idUsr')){
-			//Title
-			$title = 'Devis';
 			//Breadcrumb
 			$breadcrumb = 'Devis';
 			//Menu
@@ -87,7 +86,7 @@ class DevisController extends Controller
 			$id = $request->id;
 			if($id != 0){
 				//Requete Read
-				$query = Devis::select('date_at', 'client_id', 'billaddr_id', 'header_id', 'mt_ht', 'mt_ttc', 'mt_euro', 'sum_rem', 'sum_tva', 'see_tva', 'see_rem', 'see_euro', 'reference')
+				$query = Devis::select('date_at', 'client_id', 'billaddr_id', 'ship_id', 'header_id', 'mt_ht', 'mt_ttc', 'mt_euro', 'sum_rem', 'sum_tva', 'see_tva', 'see_rem', 'see_euro', 'reference')
 				->join('bill_addr', 'bill_addr.id', '=', 'devis.billaddr_id')
 				->join('headers', 'headers.id', '=', 'devis.header_id')
 				->where('devis.id', $id)
@@ -97,6 +96,7 @@ class DevisController extends Controller
 				$header_id = $query->header_id;
 				$client_id = $query->client_id;
 				$reference = $query->reference;
+				$ship_id = $query->ship_id;
 				$mt_euro = $query->mt_euro;
 				$sum_rem = $query->sum_rem;
 				$sum_tva = $query->sum_tva;
@@ -105,8 +105,7 @@ class DevisController extends Controller
 				if($query->see_tva == 1) $see_tva = 'checked';
 				if($query->see_rem == 1) $see_rem = 'checked';
 				if($query->see_euro == 1) $see_euro = 'checked';
-				$page = in_array(8, Session::get('rights')[18]) ? 'forms.devupdate2':'forms.devupdate1';
-				$page = 'forms.devupdate2';
+				$page = 'forms.devupdate';
 			}else{
 				$date_at = date('d-m-Y');
 				$query = Devis::all()->last();
@@ -116,10 +115,11 @@ class DevisController extends Controller
 					$count = $array[0] + 1;
 				}
 				$reference = sprintf('%04d', $count).'/'.date('y');
-				$client_id = $billaddr_id = $header_id = $mt_euro = $sum_rem = $mt_ttc = $sum_tva = $mt_ht = 0;
-				$page = in_array(8, Session::get('rights')[18]) ? 'forms.devcreate2':'forms.devcreate1';
-				$page = 'forms.devcreate2';
+				$client_id = $billaddr_id = $ship_id = $header_id = $mt_euro = $sum_rem = $mt_ttc = $sum_tva = $mt_ht = 0;
+				$page = 'forms.devcreate';
 			}
+			//Title
+			$title = 'Devis - '.$reference;
 			//Requete Read
 			$client = Client::whereStatus('1')
 			->orderBy('libelle')
@@ -129,7 +129,7 @@ class DevisController extends Controller
 			//Requete Read
 			$devistyp = DevisTyp::whereStatus('1')->get();
 			//Page de la vue
-			return view($page, compact('title', 'breadcrumb', 'currentMenu', 'currentSubMenu', 'addmodal', 'id', 'date_at', 'mt_ht', 'sum_rem', 'mt_ttc', 'mt_euro', 'sum_tva', 'see_tva', 'see_rem', 'see_euro', 'client_id', 'billaddr_id', 'header_id', 'client', 'header', 'devistyp', 'reference'));
+			return view($page, compact('title', 'breadcrumb', 'currentMenu', 'currentSubMenu', 'addmodal', 'id', 'date_at', 'mt_ht', 'sum_rem', 'mt_ttc', 'mt_euro', 'sum_tva', 'see_tva', 'see_rem', 'see_euro', 'client_id', 'billaddr_id', 'ship_id', 'header_id', 'client', 'header', 'devistyp', 'reference'));
 	    }else return redirect('/');
 	}
 	//Liste des devis
@@ -236,7 +236,7 @@ class DevisController extends Controller
 			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Nom</label></div>
 			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6">Matière</label></div>
 			<div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6">Qualif.</label></div>
-			<div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6 required">PU</label></div>
+			<div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6 required">P.U.</label></div>
 			<div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6 required">Qté</label></div>
 			<div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6">Unité</label></div>
 			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Total</label></div>
@@ -244,7 +244,7 @@ class DevisController extends Controller
 		}else{
 			$return .= '<datalist id="qte"></datalist><div class="row mb-5">
 			<div class="col-sm-12 col-xl-4"><label class="form-label fw-bolder text-dark fs-6 required">Designation</label></div>
-			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Prix unitaire</label></div>
+			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">P.U.</label></div>
 			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Qté</label></div>
 			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6">Unité</label></div>
 			<div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Total</label></div>
@@ -397,6 +397,7 @@ class DevisController extends Controller
 						'see_tva' => $see_tva,
 						'see_euro' => $see_euro,
 						'reference' => $reference,
+						'ship_id' => $request->ship_id,
 						'header_id' => $request->header_id,
 						'billaddr_id' => $request->billaddr_id,
 						'date_at' => Myhelper::formatDateEn($request->date_at),

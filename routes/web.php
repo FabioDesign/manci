@@ -9,6 +9,7 @@ use App\Http\Controllers\ShipsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\HeadersController;
 use App\Http\Controllers\ProfilsController;
 use App\Http\Controllers\BilladdrController;
 use App\Http\Controllers\SettingsController;
@@ -75,6 +76,12 @@ Route::controller(ClientsController::class)->group(function(){
     Route::get('clients', 'index');
     Route::post('clientform', 'forms');
     Route::post('clientcreate', 'create');
+});
+//Headers
+Route::controller(HeadersController::class)->group(function(){
+    Route::get('headers', 'index');
+    Route::post('headerform', 'forms');
+    Route::post('headercreate', 'create');
 });
 //Ships
 Route::controller(ShipsController::class)->group(function(){
@@ -152,9 +159,9 @@ Route::controller(QuantityController::class)->group(function(){
 //Settings
 Route::controller(SettingsController::class)->group(function(){
     Route::get('devistyp', 'index');
-    Route::get('headers', 'headers');
     Route::post('devprice', 'devprice');
     Route::post('settinglist', 'lists');
+    Route::get('listdevtyp', 'listdevtyp');
 });
 //Devis
 Route::controller(DevisController::class)->group(function(){

@@ -27,13 +27,13 @@
             if($data->status == 1){
               $icone = 'ban';
               $status = 'Activé';
-              $titre = 'Désactivation';
+              $titre = 'Désactiv';
               $color = 'link-danger';
               $badge = 'badge-light-success';
             }else{
               $icone = 'check';
               $status = 'Désactivé';
-              $titre = 'Activation';
+              $titre = 'Activ';
               $color = 'link-success';
               $badge = 'badge-light-danger';
             }

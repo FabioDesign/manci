@@ -5,9 +5,12 @@
 	use App\Models\User;
 	use GuzzleHttp\Psr7;
 	use App\Models\Logs;
+	use App\Models\Devis;
 	use GuzzleHttp\Client;
 	use App\Models\Supplie;
 	use App\Models\Commande;
+	use App\Models\BillAddr;
+	use App\Models\Suppllib;
 	use App\Models\Messagerie;
 	use Illuminate\Support\Str;
 	use Illuminate\Http\Request;
@@ -84,16 +87,46 @@
 				Log::warning('Error : '.$e->getMessage());
 			}
 		}
+		//Search Client
+		public static function searchClt($field){
+			$count = BillAddr::where('client_id', $field)->count();
+			return $count;
+		}
+		//Search Navire
+		public static function searchShip($field){
+			$count = Devis::where('ship_id', $field)->count();
+			return $count;
+		}
+		//Search Billing Address
+		public static function searchAddr($field){
+			$count = Devis::where('billaddr_id', $field)->count();
+			return $count;
+		}
+		//Search Nom
+		public static function searchNom($field){
+			$count = Supplie::where('suppllib_id', $field)->count();
+			return $count;
+		}
 		//Search Material
 		public static function searchMat($field){
 			$count = Supplie::where('material_id', $field)->count();
 			return $count;
 		}
-		//Search Supplie
-		public static function searchSupp($field){
+		//Search Dimension
+		public static function searchQualif($field){
+			$count = Supplie::where('diameter_id', $field)->count();
+			return $count;
+		}
+		//Search Type Fourniture
+		public static function searchFounrTyp($field){
+			$count = Suppllib::where('suppltyp_id', $field)->count();
+			return $count;
+		}
+		//Search Supplie/
+		public static function searchDevtyp($field, $typ){
 			$count = Commande::where([
-				'devtyp_id' => 2,
-				'item_id' => $field
+				'item_id' => $field,
+				'devtyp_id' => $typ,
 			])->count();
 			return $count;
 		}

@@ -11,6 +11,7 @@
           <tr class="fw-bolder fs-6 text-gray-800 px-7">
             <th>#</th>
             <th>Adresse de facturation</th>
+            <th>Navire</th>
             <th class="text-center">Réference</th>
             <th class="text-center">Total</th>
             <th class="text-center">Date</th>
@@ -36,7 +37,8 @@
           @endphp
           <tr>
             <td>{{ $i++ }}</td>
-            <td>{{ $data->libelle }}</td>
+            <td>{{ $data->bill_addr }}</td>
+            <td>{{ $data->libship }}</td>
             <td class="text-center">{{ $data->reference }}</td>
             <td class="text-center">{{ number_format($data->mt_ttc, 0, ',', '.') }}</td>
             <td class="text-center">{{ Myhelper::formatDateFr($data->date_at) }}</td>
@@ -51,6 +53,7 @@
               @else
               <a href="#"><i class="fas fa-edit fa-size text-muted"></i></a>
               @endif
+              <a href="#" class="status" data-h="{{ $data->id }}|6|18" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Dupliquer le devis"><i class="fas fa-window-restore fa-size text-violet"></i></a>
               @if((in_array(5, Session::get('rights')[18]))&&($data->status == 0))
               <a href="#" class="status" data-h="{{ $data->id }}|0|18" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Transmettre le devis"><i class="fas fa-paper-plane fa-size text-success"></i></a>
               @endif

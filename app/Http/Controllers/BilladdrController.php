@@ -108,7 +108,7 @@ class BilladdrController extends Controller
 				];
 				try{
 					if($id == 0){
-						$set['status'] = '0';
+						$set['status'] = '1';
 						$set['user_id'] = Session::get('idUsr');
 						BillAddr::create($set);
 						$msg = 'Adresse Facturaction enregistrée avec succès.';

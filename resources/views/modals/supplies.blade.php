@@ -4,7 +4,7 @@
 <div class="row fv-row mb-7">
   <!--begin::Col-->
   <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6 required">Type</label>
+    <label class="form-label fw-bolder text-dark fs-6 required">Catégorie</label>
     <select id="suppltyp_id" class="form-control form-select form-control-solid requiredField" aria-label="Select example">
       <option value="" selected disabled>Sélectionner</option>
       @foreach($suppltyp as $data)
@@ -15,7 +15,7 @@
   <!--end::Col-->
   <!--begin::Col-->
   <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6 required">Nom</label>
+    <label class="form-label fw-bolder text-dark fs-6 required">Nom comercial</label>
     <select id="suppllib_id" name="suppllib_id" class="form-control form-select form-control-solid requiredField" aria-label="Select example">
       <option value="" selected disabled>Sélectionner</option>
     </select>
@@ -37,7 +37,7 @@
   <!--end::Col-->
   <!--begin::Col-->
   <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6">Qualification</label>
+    <label class="form-label fw-bolder text-dark fs-6">Dimension</label>
     <select name="diameter_id" class="form-control form-select form-control-solid" aria-label="Select example">
       <option value="0" selected>Aucune</option>
       @foreach($diameter as $data)
@@ -50,14 +50,20 @@
 <!--begin::Input group-->
 <div class="row fv-row mb-7">
   <!--begin::Col-->
-  <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6 required">Montant</label>
+  <div class="col-sm-12 col-xl-4">
+    <label class="form-label fw-bolder text-dark fs-6">Prix achat</label>
+    <input type="text" name="cost" value="{{ $cost }}" class="form-control form-control-lg form-control-solid text-center amount" onKeyUp="verif_num(this)" />
+  </div>
+  <!--end::Col-->
+  <!--begin::Col-->
+  <div class="col-sm-12 col-xl-4">
+    <label class="form-label fw-bolder text-dark fs-6 required">P.U.</label>
     <input type="text" name="amount" value="{{ $amount }}" class="form-control form-control-lg form-control-solid text-center requiredField amount" onKeyUp="verif_num(this)" />
   </div>
   <!--end::Col-->
   <!--begin::Col-->
-  <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6">Unité</label>
+  <div class="col-sm-12 col-xl-4">
+    <label class="form-label fw-bolder text-dark fs-6">Unité de mesure</label>
     <input type="text" name="unit" value="{{ $unit }}" class="form-control form-control-lg form-control-solid text-center" />
   </div>
   <!--end::Col-->

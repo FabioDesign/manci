@@ -157,7 +157,7 @@ class UsersController extends Controller
 					}
 					try{
 						if($id == 0){
-							$set['status'] = '0';
+							$set['status'] = '1';
 							$set['user_id'] = Session::get('idUsr');
 							$set['password'] = Hash::make('manci@2023');
 							User::create($set);

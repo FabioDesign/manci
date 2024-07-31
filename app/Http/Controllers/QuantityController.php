@@ -97,7 +97,7 @@ class QuantityController extends Controller
 				];
 				try{
 					if($id == 0){
-						$set['status'] = '0';
+						$set['status'] = '1';
 						$set['user_id'] = Session::get('idUsr');
 						Quantity::create($set);
 						$msg = 'Quantité enregistrée avec succès.';

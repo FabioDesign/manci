@@ -22,13 +22,14 @@ class PDFController extends Controller
 	// Generate PDF Devis
     public function pdfdevis(request $request){
 		$id = $request->id;
-		$devis = Devis::select('reference', 'date_at', 'filename', 'logo', 'bill_addr.libelle AS bill_addr', 'content', 'mt_ht', 'mt_rem', 'mt_ttc', 'mt_euro', 'mt_tva', 'sum_rem', 'sum_tva', 'see_rem', 'see_tva', 'see_euro')
-		->join('headers', 'headers.id', '=', 'devis.header_id')
+		$devis = Devis::select('reference', 'date_at', 'filename', 'header', 'footer', 'bill_addr.libelle AS bill_addr', 'ships.libelle AS libship', 'content', 'mt_ht', 'mt_rem', 'mt_ttc', 'mt_euro', 'mt_tva', 'sum_rem', 'sum_tva', 'see_rem', 'see_tva', 'see_euro')
 		->join('bill_addr', 'bill_addr.id', '=', 'devis.billaddr_id')
+		->join('headers', 'headers.id', '=', 'devis.header_id')
+		->leftJoin('ships', 'ships.id', '=', 'devis.ship_id')
 		->where('devis.id', $id)
 		->first();
 		//Header
-		$devis->logo = public_path('assets/media/headers/'.$devis->logo);
+		$devis->header = public_path('assets/media/headers/'.$devis->header);
 		//Chiifre en lettre
 		$int2str = new NumberFormatter('fr', NumberFormatter::SPELLOUT);
 		$string = $int2str->format($devis->mt_ttc);
@@ -104,8 +105,9 @@ class PDFController extends Controller
 	// Generate PDF Facture
     public function pdfbills(request $request){
 		$id = $request->id;
-		$bills = Devis::select('filename', 'bill_addr.libelle AS bill_addr', 'content', 'mt_ht', 'mt_rem', 'mt_ttc', 'mt_euro', 'mt_tva', 'sum_rem', 'sum_tva', 'see_tva', 'see_rem', 'see_euro')
+		$bills = Devis::select('filename', 'bill_addr.libelle AS bill_addr', 'ships.libelle AS libship', 'content', 'mt_ht', 'mt_rem', 'mt_ttc', 'mt_euro', 'mt_tva', 'sum_rem', 'sum_tva', 'see_tva', 'see_rem', 'see_euro')
 		->join('bill_addr', 'bill_addr.id', '=', 'devis.billaddr_id')
+		->leftJoin('ships', 'ships.id', '=', 'devis.ship_id')
 		->where([
 			['devis.id', $id],
 			['devis.status', '4'],

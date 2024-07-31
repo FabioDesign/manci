@@ -61,6 +61,9 @@
         <tr>
           <td width="310px">&nbsp;</td>
           <td width="285px">
+            @if($devis->libship != '')
+              NAVIRE<br><strong>{{ $devis->libship }}</strong>
+            @endif
             <strong>{{ $bills->bill_addr }}</strong><br>
             {!! nl2br($bills->content) !!}
           </td>
@@ -74,7 +77,7 @@
           <th width="67%" class="text-center">DESIGNATION</th>
           <th width="5%" class="text-center">QTE</th>
           <th width="5%" class="text-center">UoM</th>
-          <th width="9%" class="text-center">PU</th>
+          <th width="9%" class="text-center">P.U.</th>
           <th width="14%" class="text-center">MONTANT</th>
         </tr>
       </thead>

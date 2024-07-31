@@ -76,7 +76,7 @@ class ClientsController extends Controller
 				];
 				try{
 					if($id == 0){
-						$set['status'] = '0';
+						$set['status'] = '1';
 						$set['user_id'] = Session::get('idUsr');
 						Client::create($set);
 						$msg = 'Client enregistré avec succès.';

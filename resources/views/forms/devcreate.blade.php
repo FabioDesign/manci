@@ -8,18 +8,13 @@
 		<!--begin::Form-->
 		<form id="kt_invoice_form" class="formField" autocomplete="off">
 			<input type="hidden" id="nameController" value="deviscreate">
-			<input type="hidden" id="old_rem" name="old_rem" value="{{ $sum_rem }}">
-			<input type="hidden" id="old_tva" name="old_tva" value="{{ $sum_tva }}">
+			<input type="hidden" name="reference" value="{{ $reference }}">
+			<input type="hidden" id="old_rem" name="old_rem" value="0">
+			<input type="hidden" id="old_tva" name="old_tva" value="0">
 			<input type="hidden" id="devttr_id" name="devttr_id">
-			<input type="hidden" name="id" value="{{ $id }}">
+			<input type="hidden" id="id" name="id">
 			<!--begin::Input group-->
 			<div class="row g-9 mb-8">
-				<!--begin::Col-->
-				<div class="col-sm-12 col-xl-2">
-					<label class="form-label fw-bolder text-dark fs-6 required">Référence</label>
-					<input type="text" name="reference" value="{{ $reference }}" class="form-control form-control-solid requiredField text-center" />
-				</div>
-				<!--end::Col-->
 				<!--begin::Col-->
 				<div class="col-sm-12 col-xl-2">
 					<label class="form-label fw-bolder text-dark fs-6 required">Date</label>
@@ -36,28 +31,36 @@
 						</i>
 						<!--end::Icon-->
 						<!--begin::Datepicker-->
-						<input id="date_at" name="date_at" value="{{ $date_at }}" class="form-control form-control-solid ps-12" readonly />
+						<input id="date_at" name="date_at" class="form-control form-control-solid requiredField ps-12" readonly />
 						<!--end::Datepicker-->
 					</div>
 					<!--end::Input-->
 				</div>
 				<!--end::Col-->
 				<!--begin::Col-->
-				<div class="col-sm-12 col-xl-3">
+				<div class="col-sm-12 col-xl-2">
 					<label class="form-label fw-bolder text-dark fs-6 required">Client</label>
 					<select id="client_id" class="form-control form-select form-control-solid requiredField" aria-label="Select example">
 						<option value="" selected disabled>Sélectionner</option>
 						@foreach($client as $data)
-							<option value="{{ $data->id }}" @php echo $client_id == $data->id ? 'selected':'' @endphp>{{ $data->libelle }}</option>
+							<option value="{{ $data->id }}">{{ $data->libelle }}</option>
 						@endforeach
 					</select>
 				</div>
 				<!--end::Col-->
 				<!--begin::Col-->
 				<div class="col-sm-12 col-xl-3">
-					<label class="form-label fw-bolder text-dark fs-6 required">Adresse de facturation</label>
+					<label class="form-label fw-bolder text-dark fs-6 required">Adresse de fact.</label>
 					<select id="billaddr_id" name="billaddr_id" class="form-control form-select form-control-solid requiredField" aria-label="Select example">
 						<option value="" selected disabled>Sélectionner</option>
+					</select>
+				</div>
+				<!--end::Col-->
+				<!--begin::Col-->
+				<div class="col-sm-12 col-xl-3">
+					<label class="form-label fw-bolder text-dark fs-6">Navire</label>
+					<select id="ship_id" name="ship_id" class="form-control form-select form-control-solid" aria-label="Select example">
+						<option value="0" selected>Sélectionner</option>
 					</select>
 				</div>
 				<!--end::Col-->
@@ -67,7 +70,7 @@
 					<select name="header_id" class="form-control form-select form-control-solid requiredField" aria-label="Select example">
 						<option value="" selected disabled>Sélectionner</option>
 						@foreach($header as $data)
-							<option value="{{ $data->id }}" @php echo $header_id == $data->id ? 'selected':'' @endphp>{{ $data->libelle }}</option>
+							<option value="{{ $data->id }}">{{ $data->libelle }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -84,23 +87,23 @@
 					<label class="form-label fw-bolder text-dark fs-6 required">Titre</label>
 					<!--begin::Option-->
 					<label class="form-check form-check-custom form-check-inline form-check-solid mx-5">
-						<input class="form-check-input" type="radio" name="devttr" value="1" checked>
+						<input class="form-check-input" type="radio" id="devttr" name="devttr" value="1" checked>
 						<span class="fw-semibold ps-2 fs-6">Ajouter</span>
 					</label>
 					<!--end::Option-->
 					<!--begin::Option-->
 					<label class="form-check form-check-custom form-check-inline form-check-solid">
-						<input class="form-check-input devttr" type="radio" name="devttr" value="2">
+						<input class="form-check-input devttr" type="radio" name="devttr" value="2" disabled>
 						<span class="fw-semibold ps-2 fs-6">Modifier</span>
 					</label>
 					<!--end::Option-->
-					<input type="text" id="title" name="title" class="form-control form-control-solid" />
+					<input type="text" id="title" name="title" class="form-control form-control-solid requiredField" />
 				</div>
 				<!--end::Col-->
 				<!--begin::Col-->
 				<div class="col-sm-12 col-xl-3">
 					<label class="form-label fw-bolder text-dark fs-6 required">Type devis</label>
-					<select id="devtyp_id" name="devtyp_id" class="form-control form-select form-control-solid" aria-label="Select example">
+					<select id="devtyp_id" name="devtyp_id" class="form-control form-select form-control-solid requiredField" aria-label="Select example">
 						<option value="" selected disabled>Sélectionner</option>
 						@foreach($devistyp as $data)
 							<option value="{{ $data->id }}">{{ $data->libelle }}</option>
@@ -113,13 +116,13 @@
 					<label class="form-label fw-bolder text-dark fs-6 d-block">Afficher prix</label>
 					<!--begin::Option-->
 					<label class="form-check form-check-custom form-check-inline form-check-solid mt-3">
-						<input type="radio" name="see_price" value="1" class="form-check-input display-o" checked>
+						<input type="radio" name="see_price" value="1" class="form-check-input" checked>
 						<span class="fw-semibold ps-2 fs-6">Oui</span>
 					</label>
 					<!--end::Option-->
 					<!--begin::Option-->
 					<label class="form-check form-check-custom form-check-inline form-check-solid">
-						<input type="radio" name="see_price" value="0" class="form-check-input display-n">
+						<input type="radio" name="see_price" value="0" class="form-check-input">
 						<span class="fw-semibold ps-2 fs-6">Non</span>
 					</label>
 					<!--end::Option-->
@@ -149,7 +152,7 @@
 					<label class="form-label fw-bolder text-dark fs-6">Description</label>
 					<!--begin::Input group-->
 					<div class="mb-5">
-						<textarea id="content" name="content" class="form-control form-control-solid" rows="5"></textarea>
+						<textarea class="form-control form-control-solid" rows="5" id="content" name="content"></textarea>
 					</div>
 					<!--end::Input group-->
 				</div>
@@ -171,7 +174,7 @@
 					</div>
 					<!--begin::Col-->
 					<div class="col-sm-12 col-xl-2">
-						<label class="form-label fw-bolder text-dark fs-6 required">Prix unitaire</label>
+						<label class="form-label fw-bolder text-dark fs-6 required">P.U.</label>
 						<input type="text" name="price[]" placeholder="0" class="form-control form-control-solid text-center amount price" onKeyUp="verif_num(this)" readonly />
 					</div>
 					<!--end::Col-->
@@ -235,16 +238,16 @@
 					</thead>
 					<tbody>
 						<tr class="fw-bold text-gray-700 fs-5 text-end">
-							<td class="text-center pt-6 mt_ht">{{ $mt_ht }}</td>
+							<td class="text-center pt-6 mt_ht">0</td>
 							<td class="pt-6">
 								<div class="row">
 									<div class="col-sm-12 col-xl-4">
 										<label class="form-check form-switch form-check-custom form-check-solid flex-stack">
-											<input class="form-check-input h-30px w-50px" name="see_rem" type="checkbox" {{ $see_rem }}>
+											<input class="form-check-input h-30px w-50px" name="see_rem" type="checkbox">
 										</label>
 									</div>
 									<div class="col-sm-12 col-xl-8">
-										<input type="text" name="sum_rem" value="{{ $sum_rem }}" class="form-control form-control-solid text-center h-30px" />
+										<input type="text" name="sum_rem" placeholder="0" class="form-control form-control-solid text-center h-30px" />
 									</div>
 								</div>
 							</td>
@@ -252,24 +255,24 @@
 								<div class="row">
 									<div class="col-sm-12 col-xl-4">
 										<label class="form-check form-switch form-check-custom form-check-solid flex-stack">
-											<input class="form-check-input h-30px w-50px" name="see_tva" type="checkbox" {{ $see_tva }}>
+											<input class="form-check-input h-30px w-50px" name="see_tva" type="checkbox">
 										</label>
 									</div>
 									<div class="col-sm-12 col-xl-8">
-										<input type="text" name="sum_tva" value="{{ $sum_tva }}" class="form-control form-control-solid text-center h-30px" />
+										<input type="text" name="sum_tva" placeholder="0" class="form-control form-control-solid text-center h-30px" />
 									</div>
 								</div>
 							</td>
-							<td class="text-center pt-6 mt_ttc">{{ $mt_ttc }}</td>
+							<td class="text-center pt-6 mt_ttc">0</td>
 							<td class="pt-6">
 								<div class="row">
 									<div class="col-sm-12 col-xl-4">
 										<label class="form-check form-switch form-check-custom form-check-solid flex-stack">
-											<input class="form-check-input h-30px w-50px" name="see_euro" type="checkbox" {{ $see_euro }}>
+											<input class="form-check-input h-30px w-50px" name="see_euro" type="checkbox">
 										</label>
 									</div>
 									<div class="col-sm-12 col-xl-8">
-										<input type="text" id="mt_euro" value="{{ $mt_euro }}" class="form-control form-control-solid text-center h-30px" readonly />
+										<input type="text" id="mt_euro" placeholder="0" class="form-control form-control-solid text-center h-30px" readonly />
 									</div>
 								</div>
 							</td>
@@ -312,7 +315,7 @@
 					<thead>
 						<tr class="border-bottom fs-6 fw-bold text-gray-700 text-uppercase">
 							<th class="min-w-300px w-475px text-center">Designation</th>
-							<th class="min-w-100px w-100px text-center">PU</th>
+							<th class="min-w-100px w-100px text-center">P.U.</th>
 							<th class="min-w-100px w-100px text-center">Qté</th>
 							<th class="min-w-100px w-100px text-end">Total</th>
 						</tr>
@@ -333,16 +336,13 @@
 @endsection
 
 @section('scripts')
-	<script src="/assets/js/devis.js?v1.1.3"></script>
+	<script src="/assets/js/devis.js?v2024.07.18.3"></script>
 	<script>
     	var countApp = 100;
-		var id = {!! $id !!};
-		var client_id = {!! $client_id !!};
-		var billaddr_id = {!! $billaddr_id !!};
 		var remtyp = '<input class="form-check-input w-70px h-40px me-5" id="seeremtyp" name="seeremtyp" type="checkbox"><input type="text" id="mtremtyp" name="mtremtyp" value="0" class="form-control form-control-solid text-center amount" onKeyUp="verif_num(this)" />';
 		$(document).ready(function(){
-			Devismod(id);
-			Billaddrlist(client_id, billaddr_id);
+			Shiplist(0, 0);
+			Billaddrlist(0, 0);
 		});
 	</script>
 @endsection

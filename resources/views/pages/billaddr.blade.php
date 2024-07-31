@@ -24,13 +24,13 @@
             if($data->status == 1){
               $icone = 'ban';
               $status = 'Activé';
-              $titre = 'Désactivation';
+              $titre = 'Désactiver';
               $color = 'link-danger';
               $badge = 'badge-light-success';
             }else{
               $icone = 'check';
               $status = 'Désactivé';
-              $titre = 'Activation';
+              $titre = 'Activer';
               $color = 'link-success';
               $badge = 'badge-light-danger';
             }
@@ -52,6 +52,11 @@
               <a href="#" class="status" data-h="{{ $data->id.'|'.$data->status.'|10' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="{{ $titre }} Adresse Facturaction"><i class="fas fa-{{ $icone }} fa-size {{ $color }}"></i></a>
               @else
               <a href="#"><i class="fas fa-{{ $icone }} fa-size text-muted"></i></a>
+              @endif
+              @if((in_array(8, Session::get('rights')[10]))&&(Myhelper::searchAddr($data->id) == 0))
+              <a href="#" class="status" data-h="{{ $data->id.'|2|10' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Supprimer Adresse facturation"><i class="fas fa-trash-alt fa-size text-violet"></i></a>
+              @else
+              <a href="#"><i class="fas fa-trash-alt fa-size text-muted"></i></a>
               @endif
             </td>
           </tr>

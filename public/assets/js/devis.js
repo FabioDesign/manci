@@ -100,12 +100,49 @@ function Priceamount(id, mat, dia, type, current){
     }
   });
 }
+//Add Line 
+$('#devttr').on('click', function(){
+  $('#title').val();
+  $.ajax({
+    type: 'GET',
+    url: '/listdevtyp',
+    success: function(response){
+      var options = '<option value="0" selected>Sélectionner</option>';
+      $.each(response, function(index, value){
+        options += '<option value="'+index+'">'+value+'</option>';
+      });
+      $('#devtyp_id').html(options);
+    }
+  });
+});
 //Modal Form
 $('#client_id').on('change', function(){
   var client_id = $(this).val();
+  Shiplist(client_id, ship_id);
   Billaddrlist(client_id, billaddr_id);
 });
-//Profil form
+//Liste des navires
+function Shiplist(client_id, ship_id){
+  var datasT = {id:client_id};
+  $.ajax({
+    type: 'POST',
+    data: datasT,
+    url: '/shiplist',
+    success: function(response){
+      if(response == 'x'){
+        location.href = '/';
+      }else{
+        var options = '<option value="0" selected>Sélectionner</option>';
+        $.each(response, function(index, value){
+          var selected = ship_id == index ? 'selected':'';
+          options += '<option value="'+index+'" '+selected+'>'+value+'</option>';
+        });
+        $('#ship_id').html(options);
+      }
+    }
+  });
+}
+//Liste des adresses de facturation
 function Billaddrlist(client_id, billaddr_id){
   var datasT = {id:client_id};
   $.ajax({
@@ -118,10 +155,7 @@ function Billaddrlist(client_id, billaddr_id){
       }else{
         var options = '<option value="" selected disabled>Sélectionner</option>';
         $.each(response, function(index, value){
-          if(billaddr_id == index)
-            var selected = 'selected';
-          else
-          var selected = '';
+          var selected = billaddr_id == index ? 'selected':'';
           options += '<option value="'+index+'" '+selected+'>'+value+'</option>';
         });
         $('#billaddr_id').html(options);
@@ -169,7 +203,7 @@ function settinglist(id, type){
           var splitter = response.split('|');
           if(id == 2){
             if(type == 0){
-              var contentApp = '<datalist id="qte"></datalist><div class="row mb-5"><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Type</label><select class="form-control form-select form-control-solid type_id" aria-label="Select example">'+splitter[0]+'</select></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Nom</label><select name="item_id[]" class="form-control form-select form-control-solid item_id requiredField" aria-label="Select example"><option value="" selected disabled>Sélectionner</option></select></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6">Matière</label><select name="material_id[]" class="form-control form-select form-control-solid material_id" aria-label="Select example">'+splitter[1]+'</select></div><div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6">Qualif.</label><select name="diameter_id[]" class="form-control form-select form-control-solid diameter_id space" aria-label="Select example">'+splitter[2]+'</select></div><div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6 required">PU</label><input type="text" name="price[]" placeholder="0" class="form-control form-control-solid space text-center requiredField amount price" readonly /></div><div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6 required">Qté</label><input type="text" name="qte[]" list="qte" placeholder="0" class="form-control form-control-solid space text-center requiredField qte" readonly /></div><div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6">Unité</label><input type="text" name="unit[]" class="form-control form-control-solid space text-center unit" readonly /></div><div class="col-sm-12 col-xl-2 position-relative"><label class="form-label fw-bolder text-dark fs-6 required">Total</label><input type="text" value="0" class="form-control form-control-solid requiredField text-center w-85 total" readonly /><a href="#" class="btn btn-icon position-absolute bottom-0 end-0 pe-none"><i class="ki-duotone ki-trash text-dark fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i></a></div></div>';
+              var contentApp = '<datalist id="qte"></datalist><div class="row mb-5"><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Type</label><select class="form-control form-select form-control-solid type_id" aria-label="Select example">'+splitter[0]+'</select></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Nom</label><select name="item_id[]" class="form-control form-select form-control-solid item_id requiredField" aria-label="Select example"><option value="" selected disabled>Sélectionner</option></select></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6">Matière</label><select name="material_id[]" class="form-control form-select form-control-solid material_id" aria-label="Select example">'+splitter[1]+'</select></div><div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6">Qualif.</label><select name="diameter_id[]" class="form-control form-select form-control-solid diameter_id space" aria-label="Select example">'+splitter[2]+'</select></div><div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6 required">P.U.</label><input type="text" name="price[]" placeholder="0" class="form-control form-control-solid space text-center requiredField amount price" readonly /></div><div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6 required">Qté</label><input type="text" name="qte[]" list="qte" placeholder="0" class="form-control form-control-solid space text-center requiredField qte" readonly /></div><div class="col-sm-12 col-xl-1"><label class="form-label fw-bolder text-dark fs-6">Unité</label><input type="text" name="unit[]" class="form-control form-control-solid space text-center unit" readonly /></div><div class="col-sm-12 col-xl-2 position-relative"><label class="form-label fw-bolder text-dark fs-6 required">Total</label><input type="text" value="0" class="form-control form-control-solid requiredField text-center w-85 total" readonly /><a href="#" class="btn btn-icon position-absolute bottom-0 end-0 pe-none"><i class="ki-duotone ki-trash text-dark fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i></a></div></div>';
               $('.form-command').html(contentApp);
             }else{
               var contentApp = '<div class="row mb-5"><div class="col-sm-12 col-xl-2"><select class="form-control form-select form-control-solid type_id" aria-label="Select example">'+splitter[0]+'</select></div><div class="col-sm-12 col-xl-2"><select name="item_id[]" class="form-control form-select form-control-solid item_id requiredField" aria-label="Select example"><option value="" selected disabled>Sélectionner</option></select></div><div class="col-sm-12 col-xl-2"><select name="material_id[]" class="form-control form-select form-control-solid material_id" aria-label="Select example">'+splitter[1]+'</select></div><div class="col-sm-12 col-xl-1"><select name="diameter_id[]" class="form-control form-select form-control-solid diameter_id space" aria-label="Select example">'+splitter[2]+'</select></div><div class="col-sm-12 col-xl-1"><input type="text" name="price[]" placeholder="0" class="form-control form-control-solid space text-center requiredField amount price" readonly /></div><div class="col-sm-12 col-xl-1"><input type="text" name="qte[]" list="qte" placeholder="0" class="form-control form-control-solid space text-center requiredField qte" readonly /></div><div class="col-sm-12 col-xl-1"><input type="text" name="unit[]" class="form-control form-control-solid space text-center unit" readonly /></div><div class="col-sm-12 col-xl-2 position-relative"><input type="text" value="0" class="form-control form-control-solid requiredField text-center w-85 total" readonly /><a href="#" class="btn btn-icon btn-flex btn-active-light-danger position-absolute bottom-0 end-0 delDev" data-bs-toggle="tooltip" aria-label="Supprimer" data-bs-original-title="Supprimer" data-kt-initialized="1"><i class="ki-duotone ki-trash text-danger fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i></a></div></div>';
@@ -179,7 +213,7 @@ function settinglist(id, type){
             }
           }else{
             if(type == 0){
-              var contentApp = '<datalist id="qte"></datalist><div class="row mb-5"><div class="col-sm-12 col-xl-4"><label class="form-label fw-bolder text-dark fs-6 required">Designation</label><select name="item_id[]" class="form-control form-select form-control-solid requiredField item_id" aria-label="Select example">'+splitter[0]+'</select></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Prix unitaire</label><input type="text" name="price[]" placeholder="0" class="form-control form-control-solid requiredField text-center amount price" onKeyUp="verif_num(this)" readonly /></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Qté</label><input type="text" name="qte[]" list="qte" placeholder="0" class="form-control form-control-solid requiredField text-center qte space" readonly /></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6">Unité</label><input type="text" name="unit[]" class="form-control form-control-solid text-center unit space" readonly /></div><div class="col-sm-12 col-xl-2 position-relative"><label class="form-label fw-bolder text-dark fs-6 required">Total</label><input type="text" value="0" class="form-control form-control-solid requiredField text-center w-85 total" readonly /><a href="#" class="btn btn-icon position-absolute bottom-0 end-0 pe-none"><i class="ki-duotone ki-trash text-dark fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i></a></div></div>';
+              var contentApp = '<datalist id="qte"></datalist><div class="row mb-5"><div class="col-sm-12 col-xl-4"><label class="form-label fw-bolder text-dark fs-6 required">Designation</label><select name="item_id[]" class="form-control form-select form-control-solid requiredField item_id" aria-label="Select example">'+splitter[0]+'</select></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">P.U.</label><input type="text" name="price[]" placeholder="0" class="form-control form-control-solid requiredField text-center amount price" onKeyUp="verif_num(this)" readonly /></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Qté</label><input type="text" name="qte[]" list="qte" placeholder="0" class="form-control form-control-solid requiredField text-center qte space" readonly /></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6">Unité</label><input type="text" name="unit[]" class="form-control form-control-solid text-center unit space" readonly /></div><div class="col-sm-12 col-xl-2 position-relative"><label class="form-label fw-bolder text-dark fs-6 required">Total</label><input type="text" value="0" class="form-control form-control-solid requiredField text-center w-85 total" readonly /><a href="#" class="btn btn-icon position-absolute bottom-0 end-0 pe-none"><i class="ki-duotone ki-trash text-dark fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i></a></div></div>';
               $('.form-command').html(contentApp);
             }else{
               var contentApp = '<div class="row mb-5"><div class="col-sm-12 col-xl-4"><select name="item_id[]" class="form-control form-select form-control-solid requiredField item_id" aria-label="Select example">'+splitter[0]+'</select></div><div class="col-sm-12 col-xl-2"><input type="text" name="price[]" placeholder="0" class="form-control form-control-solid text-center requiredField amount price" readonly /></div><div class="col-sm-12 col-xl-2"><input type="text" name="qte[]" list="qte" placeholder="0" class="form-control form-control-solid text-center requiredField qte space" readonly /></div><div class="col-sm-12 col-xl-2"><input type="text" name="unit[]" class="form-control form-control-solid text-center unit space" readonly /></div><div class="col-sm-12 col-xl-2 position-relative"><input type="text" value="0" class="form-control form-control-solid requiredField text-center w-85 total" readonly /><a href="#" class="btn btn-icon btn-flex btn-active-light-danger position-absolute bottom-0 end-0 delDev" data-bs-toggle="tooltip" aria-label="Supprimer" data-bs-original-title="Supprimer" data-kt-initialized="1"><i class="ki-duotone ki-trash text-danger fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i></a></div></div>';
@@ -323,8 +357,8 @@ $(document).on('click', '.submitDev', function(e){
       hasError = true;
     }
   });
-  $('.formField .amount').each(function(){
-    if(!hasError){
+  if(!hasError){
+    $('.formField .amount').each(function(){
       var value = jQuery.trim($(this).val());
       var regex = /^[0-9\s]*$/;
       if((value != '')&&(value != 0)&&(!regex.test(value))){
@@ -332,8 +366,8 @@ $(document).on('click', '.submitDev', function(e){
         $(this).addClass('fieldError');
         hasError = true;
       }
-    }
-  });
+    });
+  }
   if(!hasError){
     $.ajax({
       type: 'POST',
@@ -350,6 +384,7 @@ $(document).on('click', '.submitDev', function(e){
         if(splitter[0] == 'x'){
           location.href = '/';
         }else if(splitter[0] != 0){
+          $('#typ').val(1);
           $('#solde').val(0);
           $('#content').val('');
           $('.remtyp').html(remtyp);
@@ -363,8 +398,8 @@ $(document).on('click', '.submitDev', function(e){
           Pdfcreator('pdfdevis', splitter[2]);
           $('.msgError').css('color', '#47BE7D').html(splitter[1]);
           $('.devttr').attr('checked', 'checked').removeAttr('disabled');
-          $('#devtyp_id').html('<option value="" disabled="">Sélectionner</option><option value="1">TRAVAUX</option><option value="2">FOURNITURES</option><option value="3">TRANSPORT</option>');
-          var contentApp = '<datalist id="qte"></datalist><div class="row mb-5 devistype"><div class="col-sm-12 col-xl-4"><label class="form-label fw-bolder text-dark fs-6 required">Designation</label><select name="item_id[]" class="form-control form-select form-control-solid item_id" aria-label="Select example">Sélectionner</select></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Prix unitaire</label><input type="text" name="price[]" placeholder="0" class="form-control form-control-solid text-center amount price" onKeyUp="verif_num(this)" readonly /></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Qté</label><input type="text" name="qte[]" list="qte" placeholder="0" class="form-control form-control-solid text-center qte space" readonly /></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6">Unité</label><input type="text" name="unit[]" class="form-control form-control-solid text-center unit space" readonly /></div><div class="col-sm-12 col-xl-2 position-relative"><label class="form-label fw-bolder text-dark fs-6 required">Total</label><input type="text" value="0" class="form-control form-control-solid text-center w-85 total" readonly /><a href="#" class="btn btn-icon position-absolute bottom-0 end-0 pe-none"><i class="ki-duotone ki-trash text-dark fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i></a></div></div>';
+          $('.addDev').removeClass('not-active').addClass('btn-primary');
+          var contentApp = '<datalist id="qte"></datalist><div class="row mb-5 devistype"><div class="col-sm-12 col-xl-4"><label class="form-label fw-bolder text-dark fs-6 required">Designation</label><select name="item_id[]" class="form-control form-select form-control-solid item_id requiredField" aria-label="Select example">Sélectionner</select></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">P.U.</label><input type="text" name="price[]" placeholder="0" class="form-control form-control-solid text-center amount price requiredField" onKeyUp="verif_num(this)" readonly /></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6 required">Qté</label><input type="text" name="qte[]" list="qte" placeholder="0" class="form-control form-control-solid text-center qte space requiredField" readonly /></div><div class="col-sm-12 col-xl-2"><label class="form-label fw-bolder text-dark fs-6">Unité</label><input type="text" name="unit[]" class="form-control form-control-solid text-center unit space" readonly /></div><div class="col-sm-12 col-xl-2 position-relative"><label class="form-label fw-bolder text-dark fs-6 required">Total</label><input type="text" value="0" class="form-control form-control-solid text-center w-85 total" readonly /><a href="#" class="btn btn-icon position-absolute bottom-0 end-0 pe-none"><i class="ki-duotone ki-trash text-dark fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i></a></div></div>';
           $('.form-command').html(contentApp);
           //Ligne devis
           Devismod(splitter[2]);

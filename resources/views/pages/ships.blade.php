@@ -12,8 +12,6 @@
             <th>#</th>
             <th>Client</th>
             <th>Navire</th>
-            <th>Adresse facturation</th>
-            <th>Nom & Prénoms</th>
             <th class="text-center">Date</th>
             <th class="text-center">Statut</th>
             <th class="text-center">Action</th>
@@ -26,39 +24,38 @@
             if($data->status == 1){
               $icone = 'ban';
               $status = 'Activé';
-              $titre = 'Désactivation';
+              $titre = 'Désactiver';
               $color = 'link-danger';
               $badge = 'badge-light-success';
             }else{
               $icone = 'check';
               $status = 'Désactivé';
-              $titre = 'Activation';
+              $titre = 'Activer';
               $color = 'link-success';
               $badge = 'badge-light-danger';
             }
-            $prenom = explode(' ', $data->firstname);
-            $username = $data->lastname.' '.$prenom[0];
-            $address = explode('<br>', $data->addressfact);
           @endphp
           <tr>
             <td>{{ $i++ }}</td>
             <td>{{ $data->client }}</td>
             <td>{{ $data->ships }}</td>
-            <td>{{ $data->billaddr }}</td>
-            <td>{{ $username }}</td>
             <td class="text-center">{{ Myhelper::formatDateFr($data->created_at) }}</td>
             <td class="text-center"><span data-kt-element="status" class="badge {{ $badge }}">{{ $status }}</span></td>
             <td class="text-center">
-              <a href="#" class="modaldetail" data-h="{{ $data->id }}|shipdetail|" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Détail du navire"><i class="fab fa-wpforms fa-size text-primary"></i></a>&nbsp;
               @if(in_array(3, Session::get('rights')[8]))
               <a href="#" class="modalform" data-h="{{ $data->id }}|shipform|" data-bs-toggle="tooltip" data-bs-theme="dark" data-bs-placement="top" title="Modifier le navire" submitbtn="Modifier"><i class="fas fa-edit fa-size text-warning"></i></a>
               @else
               <a href="#"><i class="fas fa-edit fa-size text-muted"></i></a>
               @endif
               @if(in_array(4, Session::get('rights')[8]))
-              <a href="#" class="status" data-h="{{ $data->id.'|'.$data->status.'|8' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="{{ $titre }} du navire"><i class="fas fa-{{ $icone }} fa-size {{ $color }}"></i></a>
+              <a href="#" class="status" data-h="{{ $data->id.'|'.$data->status.'|8' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="{{ $titre }} le navire"><i class="fas fa-{{ $icone }} fa-size {{ $color }}"></i></a>
               @else
               <a href="#"><i class="fas fa-{{ $icone }} fa-size text-muted"></i></a>
+              @endif
+              @if((in_array(8, Session::get('rights')[8]))&&(Myhelper::searchShip($data->id) == 0))
+              <a href="#" class="status" data-h="{{ $data->id.'|2|8' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Supprimer le navire"><i class="fas fa-trash-alt fa-size text-violet"></i></a>
+              @else
+              <a href="#"><i class="fas fa-trash-alt fa-size text-muted"></i></a>
               @endif
             </td>
           </tr>

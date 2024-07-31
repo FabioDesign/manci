@@ -105,7 +105,7 @@ class SuppllibController extends Controller
 				];
 				try{
 					if($id == 0){
-						$set['status'] = '0';
+						$set['status'] = '1';
 						$set['user_id'] = Session::get('idUsr');
 						Suppllib::create($set);
 						$msg = 'Nom (Fourniture) enregistré avec succès.';

@@ -11,6 +11,7 @@
           <tr class="fw-bolder fs-6 text-gray-800 px-7">
             <th>#</th>
             <th>Adresse de facturation</th>
+            <th>Navire</th>
             <th class="text-center">Réference</th>
             <th class="text-center">Total</th>
             <th class="text-center">Date</th>
@@ -24,7 +25,8 @@
           @php $prenom = Str::of($data->firstname)->explode(' '); @endphp
           <tr>
             <td>{{ $i++ }}</td>
-            <td>{{ $data->libelle }}</td>
+            <td>{{ $data->bill_addr }}</td>
+            <td>{{ $data->libship }}</td>
             <td class="text-center">{{ $data->reference }}</td>
             <td class="text-center">{{ number_format($data->mt_ttc, 0, ',', '.') }}</td>
             <td class="text-center">{{ Myhelper::formatDateFr($data->validated_at) }}</td>

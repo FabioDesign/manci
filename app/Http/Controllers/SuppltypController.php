@@ -16,7 +16,7 @@ class SuppltypController extends Controller
 	public function index(){
     	if(Session::has('idUsr')){
 			//Title
-			$title = 'Type (Fourniture)';
+			$title = 'Catégorie (Fourniture)';
 			//Breadcrumb
 			$breadcrumb = 'Paramètres';
 			//Menu
@@ -24,7 +24,7 @@ class SuppltypController extends Controller
 			//Submenu
 			$currentSubMenu = 'suppltyp';
 			//Modal
-			$addmodal = in_array(2, Session::get('rights')[12]) ? '<a href="#" class="btn btn-sm btn-primary modalform" data-h="0|suppltypform|mw-400px" title="Ajouter Type (Fourniture)" submitbtn="Valider">Ajouter Type (Fourniture)</a>':'';
+			$addmodal = in_array(2, Session::get('rights')[12]) ? '<a href="#" class="btn btn-sm btn-primary modalform" data-h="0|suppltypform|mw-400px" title="Ajouter Catégorie (Fourniture)" submitbtn="Valider">Ajouter Catégorie (Fourniture)</a>':'';
 			//Requete Read
 			$query = Suppltyp::select('id', 'libelle', 'status', 'created_at')
 			->orderByDesc('created_at')
@@ -32,7 +32,7 @@ class SuppltypController extends Controller
 			return view('pages.suppltyp', compact('title', 'breadcrumb', 'currentMenu', 'currentSubMenu', 'addmodal', 'query'));
 	    }else return redirect('/');
 	}
-	//Formulaire Type (Fourniture)
+	//Formulaire Catégorie (Fourniture)
 	public function forms(request $request){
     	if(Session::has('idUsr')){
 			$id = $request->id;
@@ -45,7 +45,7 @@ class SuppltypController extends Controller
 			return view('modals.suppltyp', compact('id', 'libelle'));
 	    }else return 'x';
 	}
-	//Add/Mod Type (Fourniture)
+	//Add/Mod Catégorie (Fourniture)
 	public function create(request $request){
     	if(Session::has('idUsr')){
 			$Ok = 0;
@@ -59,7 +59,7 @@ class SuppltypController extends Controller
 			//Error field
 			if($validator->fails()){
 				$errors = $validator->errors();
-				Log::warning("Type (Fourniture) : ".serialize($request->post()));
+				Log::warning("Catégorie (Fourniture) : ".serialize($request->post()));
 				if($errors->has('libelle')) return $Ok.'|'.$errors->first('libelle');
 			}
 			$id = $request->id;
@@ -76,28 +76,28 @@ class SuppltypController extends Controller
 				];
 				try{
 					if($id == 0){
-						$set['status'] = '0';
+						$set['status'] = '1';
 						$set['user_id'] = Session::get('idUsr');
 						Suppltyp::create($set);
-						$msg = 'Type (Fourniture) enregistré avec succès.';
+						$msg = 'Catégorie (Fourniture) enregistré avec succès.';
 						$type = 'Ajouter';
 						$color = 'success';
 					}else{
 						Suppltyp::findOrFail($id)->update($set);
-						$msg = 'Type (Fourniture) modifié avec succès.';
+						$msg = 'Catégorie (Fourniture) modifié avec succès.';
 						$type = 'Modifier';
 						$color = 'warning';
 					}
-					Myhelper::logs(Session::get('username'), Session::get('profil'), 'Type (Fourniture): '.$libelle, $type, $color, Session::get('avatar'));
-					Log::info($type.' Type (Fourniture) : '.serialize($request->post()));
+					Myhelper::logs(Session::get('username'), Session::get('profil'), 'Catégorie (Fourniture): '.$libelle, $type, $color, Session::get('avatar'));
+					Log::info($type.' Catégorie (Fourniture) : '.serialize($request->post()));
 					$Ok = 1;
 				}catch(\Exception $e){
-					Log::warning("Type (Fourniture) : ".serialize($request->post()));
-					Log::warning("Type (Fourniture) : ".$e->getMessage());
+					Log::warning("Catégorie (Fourniture) : ".serialize($request->post()));
+					Log::warning("Catégorie (Fourniture) : ".$e->getMessage());
 				}
 			}else{
 				$msg = "Nom déjà utilisé";
-				Log::warning("Type (Fourniture) : ".$libelle." : ".$msg);
+				Log::warning("Catégorie (Fourniture) : ".$libelle." : ".$msg);
 			}
 			return $Ok.'|'.$msg;
 		}else return 'x';

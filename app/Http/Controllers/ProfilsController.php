@@ -163,7 +163,7 @@ class ProfilsController extends Controller
 				];
 				try{
 					if($id == 0){
-						$set['status'] = '0';
+						$set['status'] = '1';
 						$set['user_id'] = Session::get('idUsr');
 						$profil = Profil::create($set);
 						$id = $profil->id;

@@ -97,7 +97,7 @@ class InspectorsController extends Controller
 				];
 				try{
 					if($id == 0){
-						$set['status'] = '0';
+						$set['status'] = '1';
 						$set['user_id'] = Session::get('idUsr');
 						Inspector::create($set);
 						$msg = 'Inspecteur enregistré avec succès.';

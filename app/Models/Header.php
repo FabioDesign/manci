@@ -16,6 +16,8 @@ class Header extends Model
      */
     protected $fillable = [
         'status',
+        'header',
+        'footer',
         'libelle',
     ];
 }

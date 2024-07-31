@@ -18,7 +18,6 @@ class Ship extends Model
         'status',
         'libelle',
         'user_id',
-        'billaddr_id',
-        'inspector_id',
+        'client_id',
     ];
 }

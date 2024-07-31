@@ -29,7 +29,7 @@ class SuppliesController extends Controller
 			//Modal
 			$addmodal = in_array(2, Session::get('rights')[22]) ? '<a href="#" class="btn btn-sm btn-primary modalform" data-h="0|supplieform|" title="Ajouter une Désignation" submitbtn="Valider">Ajouter une Désignation</a>':'';
 			//Requete Read
-			$query = Supplie::select('supplies.id', 'suppl_typ.libelle AS type', 'suppl_lib.libelle AS suppllib', 'materials.libelle AS material', 'diameters.libelle AS diameter', 'amount', 'unit', 'supplies.created_at')
+			$query = Supplie::select('supplies.id', 'suppl_typ.libelle AS type', 'suppl_lib.libelle AS suppllib', 'materials.libelle AS material', 'diameters.libelle AS diameter', 'cost', 'amount', 'unit', 'supplies.created_at')
 			->join('suppl_lib', 'suppl_lib.id', '=', 'supplies.suppllib_id')
 			->join('suppl_typ', 'suppl_typ.id', '=', 'suppl_lib.suppltyp_id')
 			->leftJoin('materials', 'materials.id', '=', 'supplies.material_id')
@@ -49,6 +49,7 @@ class SuppliesController extends Controller
 				->where('supplies.id', $id)
 				->first();
 				$unit = $query->unit;
+				$cost = $query->cost;
 				$amount = $query->amount;
 				$suppltyp_id = $query->suppltyp_id;
 				$suppllib_id = $query->suppllib_id;
@@ -56,7 +57,7 @@ class SuppliesController extends Controller
 				$diameter_id = $query->diameter_id;
 			}else{
 				$amount = $unit = '';
-				$suppltyp_id = $suppllib_id = $material_id = $diameter_id = 0;
+				$suppltyp_id = $suppllib_id = $material_id = $diameter_id = $cost = 0;
 			}
 			//Requete Read
 			$suppltyp = Suppltyp::whereStatus('1')
@@ -71,7 +72,7 @@ class SuppliesController extends Controller
 			->orderBy('libelle')
 			->get();
 			//Page de la vue
-			return view('modals.supplies', compact('id', 'amount', 'unit', 'suppltyp_id', 'suppllib_id', 'material_id', 'diameter_id', 'suppltyp', 'material', 'diameter'));
+			return view('modals.supplies', compact('id', 'amount', 'cost', 'unit', 'suppltyp_id', 'suppllib_id', 'material_id', 'diameter_id', 'suppltyp', 'material', 'diameter'));
 	    }else return 'x';
 	}
 	//Add/Mod Fournitures
@@ -111,6 +112,7 @@ class SuppliesController extends Controller
 			if($count == 0){
 				$set = [
 					'unit' => $request->unit,
+					'cost' => $request->cost,
 					'amount' => $request->amount,
 					'suppllib_id' => $request->suppllib_id,
 					'material_id' => $request->material_id,

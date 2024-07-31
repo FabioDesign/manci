@@ -16,6 +16,7 @@ class Supplie extends Model
      */
     protected $fillable = [
         'unit',
+        'cost',
         'amount',
         'user_id',
         'suppllib_id',

@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 
 class SchedulesController extends Controller
 {
+	//Liste des Horaires
 	public function index(){
     	if(Session::has('idUsr')){
 			//Title
@@ -83,7 +84,7 @@ class SchedulesController extends Controller
 				];
 				try{
 					if($id == 0){
-						$set['status'] = '0';
+						$set['status'] = '1';
 						$set['user_id'] = Session::get('idUsr');
 						Schedule::create($set);
 						$msg = 'Horaire enregistré avec succès.';

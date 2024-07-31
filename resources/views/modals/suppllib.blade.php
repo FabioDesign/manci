@@ -4,7 +4,7 @@
 <div class="row fv-row mb-7">
   <!--begin::Col-->
   <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6 required">Type</label>
+    <label class="form-label fw-bolder text-dark fs-6 required">Type de fourniture</label>
     <select name="suppltyp_id" class="form-control form-select form-control-solid requiredField" aria-label="Select example">
       <option value="" selected disabled>Sélectionner</option>
       @foreach($query as $data)
@@ -15,7 +15,7 @@
   <!--end::Col-->
   <!--begin::Col-->
   <div class="col-sm-12 col-xl-6">
-    <label class="form-label fw-bolder text-dark fs-6 required">Nom</label>
+    <label class="form-label fw-bolder text-dark fs-6 required">Nom de fourniture</label>
     <input type="text" name="libelle" value="{{ $libelle }}" class="form-control form-control-lg form-control-solid requiredField" />
   </div>
   <!--end::Col-->

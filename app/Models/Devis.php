@@ -27,6 +27,7 @@ class Devis extends Model
         'see_tva',
         'see_rem',
         'date_at',
+        'ship_id',
         'user_id',
         'see_euro',
         'filename',

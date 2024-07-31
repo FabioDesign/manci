@@ -11,7 +11,7 @@
           <tr class="fw-bolder fs-6 text-gray-800 px-7">
             <th>#</th>
             <th>Nom</th>
-            <th class="text-center">Entête</th>
+            <th class="text-center">Logo</th>
             <th class="text-center">Date</th>
             <th class="text-center">Statut</th>
             <th class="text-center">Action</th>
@@ -24,13 +24,13 @@
             if($data->status == 1){
               $icone = 'ban';
               $status = 'Activé';
-              $titre = 'Désactivation';
+              $titre = 'Désactiver';
               $color = 'link-danger';
               $badge = 'badge-light-success';
             }else{
               $icone = 'check';
               $status = 'Désactivé';
-              $titre = 'Activation';
+              $titre = 'Activer';
               $color = 'link-success';
               $badge = 'badge-light-danger';
             }
@@ -38,12 +38,17 @@
           <tr>
             <td>{{ $i++ }}</td>
             <td>{{ $data->libelle }}</td>
-            <td class="text-center"><a href="/assets/media/headers/{{ $data->logo }}" target="_blank"><img src="/assets/media/logos/{{ $data->logo }}" alt="{{ $data->libelle }}" class="h-30px" /></a></td>
+            <td class="text-center"><img src="/assets/media/logos/{{ $data->header }}" alt="{{ $data->libelle }}" class="h-30px" /></td>
             <td class="text-center">{{ Myhelper::formatDateFr($data->created_at) }}</td>
             <td class="text-center"><span data-kt-element="status" class="badge {{ $badge }}">{{ $status }}</span></td>
             <td class="text-center">
+              @if(in_array(3, Session::get('rights')[17]))
+              <a href="#" class="modalform" data-h="{{ $data->id }}|headerform|" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="Modifier l'Entête Facture" submitbtn="Modifier"><i class="fas fa-edit fa-size text-warning"></i></a>
+              @else
+              <a href="#"><i class="fas fa-edit fa-size text-muted"></i></a>
+              @endif
               @if(in_array(4, Session::get('rights')[17]))
-              <a href="#" class="status" data-h="{{ $data->id.'|'.$data->status.'|17' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="{{ $titre }} Entête Facture"><i class="fas fa-{{ $icone }} fa-size {{ $color }}"></i></a>
+              <a href="#" class="status" data-h="{{ $data->id.'|'.$data->status.'|17' }}" data-bs-toggle="tooltip" data-bs-theme="tooltip-dark" data-bs-placement="top" title="{{ $titre }} l'Entête Facture"><i class="fas fa-{{ $icone }} fa-size {{ $color }}"></i></a>
               @else
               <a href="#"><i class="fas fa-{{ $icone }} fa-size text-muted"></i></a>
               @endif

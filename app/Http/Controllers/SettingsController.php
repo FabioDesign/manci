@@ -36,22 +36,15 @@ class SettingsController extends Controller
 			return view('pages.devistyp', compact('title', 'breadcrumb', 'currentMenu', 'currentSubMenu', 'addmodal', 'query'));
 	    }else return redirect('/');
 	}
-	public function headers(){
-    	if(Session::has('idUsr')){
-			//Title
-			$title = 'Entête Facture';
-			//Breadcrumb
-			$breadcrumb = 'Paramètres';
-			//Menu
-			$currentMenu = 'settings';
-			//Submenu
-			$currentSubMenu = 'headers';
-			//Modal
-			$addmodal = '';
-			//Requete Read
-			$query = Header::all();
-			return view('pages.headers', compact('title', 'breadcrumb', 'currentMenu', 'currentSubMenu', 'addmodal', 'query'));
-	    }else return redirect('/');
+	//Liste des Types
+	public function listdevtyp(){
+		//Requete Read
+		$query = DevisTyp::whereStatus('1')->get();
+		$return = [];
+		foreach($query as $data):
+			$return[$data->id] = $data->libelle;
+		endforeach;
+		return $return;
 	}
 	//Liste des Types
 	public function lists(request $request){

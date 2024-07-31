@@ -26,7 +26,7 @@
 		<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Page Vendor Stylesheets-->
 		<link href="/assets/css/skins/all.css" rel="stylesheet" type="text/css" />
-		<link href="/assets/css/custom.css?v1.1.2" rel="stylesheet" type="text/css" />
+		<link href="/assets/css/custom.css?v2024.07.16" rel="stylesheet" type="text/css" />
     	@yield('styles')
 	</head>
 	<!--end::Head-->
@@ -475,7 +475,7 @@
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-													<span class="menu-title">Type</span>
+													<span class="menu-title">Catégorie</span>
 												</a>
 												<!--end:Menu link-->
 											</div>
@@ -489,7 +489,7 @@
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-													<span class="menu-title">Nom</span>
+													<span class="menu-title">Nom commercial</span>
 												</a>
 												<!--end:Menu link-->
 											</div>
@@ -517,7 +517,7 @@
 													<span class="menu-bullet">
 														<span class="bullet bullet-dot"></span>
 													</span>
-													<span class="menu-title">Qualification</span>
+													<span class="menu-title">Dimension</span>
 												</a>
 												<!--end:Menu link-->
 											</div>
