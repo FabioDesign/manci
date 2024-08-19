@@ -14,13 +14,6 @@ TRUNCATE statistic;
 
 ## Exécuter cette requête après le déploiement du 25/07/2024
 ```
-php artisan migrate --path=/database/migrations/2024_07_09_000000_truncate_ships_table.php
-php artisan migrate --path=/database/migrations/2024_07_09_000000_delete_colum_ships_table.php
-php artisan migrate --path=/database/migrations/2024_07_09_000000_add_colum_ships_table.php
-php artisan migrate --path=/database/migrations/2024_07_09_000000_add_colum_devis_table.php
-php artisan migrate --path=/database/migrations/2024_07_09_000000_add_colum_supplies_table.php
-php artisan migrate --path=/database/migrations/2024_07_09_000000_drop_headers_table.php
-php artisan migrate --path=/database/migrations/2024_07_09_000000_create_headers_table.php
-
+php artisan migrate
 php artisan db:seed
 ```
